@@ -1,6 +1,14 @@
-[{
-  "name"        : "JSON Editor",
-  "description" : "Example of demo interface with a JSON Editor UI-ACE",
-  "icon"        : "code",
-  "state"       : "jsonEditor"
-}]
+[
+  {
+    "name"        : "JSON Editor",
+    "description" : "Example of demo interface with a JSON Editor UI-ACE",
+    "icon"        : "code",
+    "state"       : "jsonEditor"
+  },
+  {
+    "name"        : "Form Editor",
+    "description" : "Example of demo interface with a Form Editor UI-ACE",
+    "icon"        : "bug_report",
+    "state"       : "formEditor"
+  }
+]

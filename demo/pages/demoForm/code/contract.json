@@ -1,0 +1,6 @@
+{
+  "user"      : "Resource User",
+  "callback"  : {
+    "onValidate"  : "function (user) {}"
+  }
+}

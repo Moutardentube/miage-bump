@@ -39,7 +39,7 @@ angular.module('eklabs.angularStarterPack.user')
                 scope.isModeEdition = false;
                 scope.goToEdition = function(){
                     scope.isModeEdition = !scope.isModeEdition;
-                    scope.userEdit = scope.user;
+                    scope.userEdit = angular.extend({},scope.user);
                 };
 
                 /**

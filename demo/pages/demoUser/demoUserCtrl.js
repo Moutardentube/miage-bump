@@ -24,7 +24,7 @@ angular.module('demoApp')
             case       : 'Case user',
             user    : {
                 name : 'toto',
-                photo : 'http://0.0.0.0:9000/images/patient/photos/F60.png',
+                photo : 'http://127.0.0.1:9100/images/photos/F60.png',
                 birthDate : "2000-01-01"
             },
             callback : {

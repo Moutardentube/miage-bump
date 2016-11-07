@@ -3,8 +3,10 @@ module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
     require('grunt-angular-templates')(grunt);
+
     grunt.loadNpmTasks('grunt-angular-templates');
-    grunt.loadNpmTasks('grunt-karma');
+    // --- Register npm task
+    grunt.loadNpmTasks('grunt-contrib-karma');
 
     var files   = require('./files').files;
 
@@ -193,6 +195,12 @@ module.exports = function (grunt) {
                     ext : '.min.css'
                 }]
             }
+        },
+
+        karma : {
+            unit: {
+                configFile: 'test/karma.conf.js'
+            }
         }
     });
 
@@ -226,8 +234,7 @@ module.exports = function (grunt) {
     // ------------- DEV TASK
     grunt.registerTask('dev', 'Run dev server and watch for changes', ['clean','build', 'connect:dev', 'watch']);
     grunt.registerTask('integration', 'Run test with osoft-cabinet and watch for changes', ['clean','build_cabinet', 'watch']);
-    grunt.registerTask('test', 'Build and run tests', ['build', 'ngconstant:test','karma:unit']);
-    grunt.registerTask('test_light', 'Task to params karma', ['karma:unit']);
+    grunt.registerTask('test', 'Build and run tests', ['build','karma:unit']);
 
 
     // ------------- RELEASE TASK

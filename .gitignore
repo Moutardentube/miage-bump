@@ -47,3 +47,4 @@ dist
 demo/config.js
 build
 .DS_Store
+_SpecRunner.html

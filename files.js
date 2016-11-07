@@ -2,6 +2,8 @@ modelFiles = {
     src : [
 
 
+        'src/services/{,**/}*.js',
+
         'src/modules/json-editor/module.js',
         'src/modules/json-editor/{,**/}*.js',
         
@@ -12,7 +14,7 @@ modelFiles = {
         'src/modules/user/{,**/}*.js',
 
         'src/module.js',
-        'src/services/{,**/}*.js'
+        'src/filters/{,**/}*.js'
 
 
 

@@ -5,8 +5,6 @@ describe('User Factory', function(){
     // Before each test load our api.users module
     beforeEach(angular.mock.module('ui.ace'));
     beforeEach(angular.mock.module('eklabs.angularStarterPack'));
-
-
     
     // ---- Inject Default config for the test
     angular.module('eklabs.angularStarterPack')
@@ -33,7 +31,6 @@ describe('User Factory', function(){
 
         it('should return one user object if it exists',inject(function(User,$httpBackend){
 
-            console.log(User.prototype);
             var testUser = function(user){
               console.log(user);
             };

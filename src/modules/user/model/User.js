@@ -3,12 +3,17 @@
 angular.module('eklabs.angularStarterPack.user')
     .factory('User', function($config,$http,$q){
 
-        var User  = function (){
-            this.uri = $config.get('api')+'/users/';
+
+        var uri = $config.get('api')+'/users/';
+
+        var User  = function (data){
+            this.name = data.name;
         };
 
         User.prototype = Object.create({});
         User.prototype.constructor = User;
+
+
 
         // ----- Get an user from the API
         User.prototype.get = function(id){
@@ -23,6 +28,21 @@ angular.module('eklabs.angularStarterPack.user')
 
             return defer.promise;
         };
+
+        User.prototype.create = function(){
+            var self = this,
+                defer = $q.defer();
+
+            $http.post(uri, this).then(function(response){
+                self.id = response.data.id;
+                defer.resolve(self);
+            },function(reason){
+                defer.reject(reason)
+            })
+
+            return defer.promise;
+
+        }
 
         return User;
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('eklabs.angularStarterPack.user')
-    .directive('myUser',function($log){
+    .directive('myUser',function($log,User){
         return {
             templateUrl : 'eklabs.angularStarterPack/modules/user/directives/my-user/view.html',
             scope : {
@@ -26,10 +26,14 @@ angular.module('eklabs.angularStarterPack.user')
                 scope.$watch('user',function(user){
                     $log.info('test user change',user);
                     if(user){
+
+                        scope.current_user = new User(user);
                         scope.user.birthDate = new Date(user.birthDate);
                     }else{
-                        scope.user = undefined;
+                        scope.current_user = new User();
                     }
+
+                    console.log(scope.current_user);
 
                 });
 
@@ -48,7 +52,14 @@ angular.module('eklabs.angularStarterPack.user')
                 scope.valid = function(user){
                     scope.isModeEdition = !scope.isModeEdition;
                     scope.user = angular.extend({},scope.userEdit);
-                    scope.callback.valid(user);
+
+                    scope.current_user.create().then(function(user){
+                        scope.callback.valid(user);
+                    },function(reason){
+                        alert('toto');
+                    });
+
+
                 }
 
 

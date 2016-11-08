@@ -3,7 +3,7 @@
 'use strict';
 
 angular.module('demoApp')
-    .controller('demoUserCtrl', function($scope,$mdDialog){
+    .controller('demoUserCtrl', function($scope,$mdDialog,User){
 
 
         // ----------------------------------------------------------------------------------------------------

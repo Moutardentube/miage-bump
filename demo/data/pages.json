@@ -10,5 +10,11 @@
     "description" : "Example of demo interface with a Form Editor UI-ACE",
     "icon"        : "bug_report",
     "state"       : "formEditor"
+  },
+  {
+    "name"        : "Bump Button",
+    "description" : "Example of demo interface with a Bump Button UI-ACE",
+    "icon"        : "thumb_up",
+    "state"       : "bumpButton"
   }
 ]

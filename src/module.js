@@ -5,6 +5,6 @@ angular.module('eklabs.angularStarterPack',[
     'eklabs.angularStarterPack.upload',
     'eklabs.angularStarterPack.jsonEditor',
     'eklabs.angularStarterPack.forms',
-    'eklabs.angularStarterPack.user'
-
+    'eklabs.angularStarterPack.user',
+    'eklabs.angularStarterPack.bumpButton'
 ]);

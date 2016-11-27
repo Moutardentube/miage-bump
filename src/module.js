@@ -3,5 +3,6 @@
 angular.module('eklabs.angularStarterPack',[
     'eklabs.angularStarterPack.jsonEditor',
     'eklabs.angularStarterPack.formEditor',
-    'eklabs.angularStarterPack.bumpButton'
+    'eklabs.angularStarterPack.bumpButton',
+    'eklabs.angularStarterPack.bumpMatch'
 ]);

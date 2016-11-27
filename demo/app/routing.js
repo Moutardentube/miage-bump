@@ -40,6 +40,15 @@ angular.module('demoApp')
             templateUrl : "pages/demoBump/demoBumpView.html"
         })
 
+        // ------------------------------------------------------------------------------------------------
+        // DEMO BUMP MATCH Component
+        // ------------------------------------------------------------------------------------------------
+        .state('bumpButton', {
+            url : '/bump-match',
+            controller : 'demoBumpMatchCtrl',
+            templateUrl : "pages/demoBumpMatch/demoBumpMatchView.html"
+        })
+
 
     ;
 

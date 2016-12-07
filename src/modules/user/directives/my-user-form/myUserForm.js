@@ -78,6 +78,7 @@ angular.module('eklabs.angularStarterPack.user')
                         }
 
                         recordUser(function(){
+
                             scope.cancel();
                         })
                     })

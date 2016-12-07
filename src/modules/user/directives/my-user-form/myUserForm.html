@@ -1,4 +1,4 @@
-<form name="myUserForm" id="myUserForm" ng-submit="save()" ng-style="{'min-height' : current_height, 'max-height' : current_height, overflow:'auto'}">
+<form name="myUserForm" id="myUserForm" ng-style="{'min-height' : current_height, 'max-height' : current_height, overflow:'auto'}">
 
     <div layout="row">
 
@@ -48,7 +48,7 @@
         <span style="font-weight: 200">Supprimer</span>
     </md-button>
 
-    <md-button aria-label="valid" type="submit" ng-if="!isLoading">
+    <md-button aria-label="valid" ng-click="save()" ng-if="!isLoading">
         <md-icon md-svg-src="material-design:doneLB" class="ic_16px"></md-icon>
         <span style="font-weight: 200">Valider</span>
     </md-button>

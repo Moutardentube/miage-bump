@@ -141,20 +141,20 @@ module.exports = function (grunt) {
         },
 
         // --- Compiles Sass to CSS and generates necessary files if requested
-        // compass: {
-        //     dist : {
-        //         options: {
-        //             sassDir             : 'src/', // Where we have to check
-        //             cssDir              : '.tmp/', // Where we put the file
-        //             importPath          : './demo/bower_components',
-        //             httpImagesPath      : '/images',
-        //             relativeAssets      : false,
-        //             assetCacheBuster    : false,
-        //             raw                 : 'Sass::Script::Number.precision = 10\n',
-        //             imagesDir           : 'src/public/images/'
-        //         }
-        //     }
-        // },
+        compass: {
+            dist : {
+                options: {
+                    sassDir             : 'src/', // Where we have to check
+                    cssDir              : '.tmp/', // Where we put the file
+                    importPath          : './demo/bower_components',
+                    httpImagesPath      : '/images',
+                    relativeAssets      : false,
+                    assetCacheBuster    : false,
+                    raw                 : 'Sass::Script::Number.precision = 10\n',
+                    imagesDir           : 'src/public/images/'
+                }
+            }
+        },
 
         // --- Copies remaining files to places other tasks can use
         copy: {

@@ -43,7 +43,7 @@ describe('User Factory', function(){
                 .respond(200,"{id : 1, name : 'test@donf'}");
 
             User.prototype.get('1').then(function(data){
-                expect(data.id).toEqual(2);
+                expect(data.id).not.toEqual(2);
             });
         }))
 

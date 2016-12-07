@@ -8,6 +8,9 @@ angular.module('eklabs.angularStarterPack.config',[])
         return {
             get: function (name) {
                 return parameters[name];
+            },
+            getUploadPath : function(){
+                return parameters['uploadPath']
             }
         }
     }]);

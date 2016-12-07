@@ -25,25 +25,6 @@
         <!-- _____ OPTION -->
         <div layout="column" flex-gt-sm="25" flex ng-show="!hideParams">
 
-            <h2 class="title" style="width:100%">Use Case</h2>
-            <md-list layout="column" layout-sm="column" layout-align="start start" style="width: 100%;">
-
-                <md-list-item ng-repeat="option in params track by $index" ng-click="chooseParams($index)"
-                              style="font-size: 0.8em;;width: 100%" flex>
-
-                    <md-icon md-svg-src="material-design:check_box" ng-if="$index == index"></md-icon>
-                    <md-icon md-svg-src="material-design:check_box_outline" ng-if="$index != index"></md-icon>
-
-                    <span style="padding-right:25px">{{option.case}}</span>
-
-                    <span flex></span>
-
-                </md-list-item>
-            </md-list>
-
-            <h2 class="title" style="width:100%" ng-if="haveResult" ng-class="{'warn-font' : result.isError}">{{result.title}}</h2>
-            <json-formatter json="result.code" open="1" ng-if="haveResult"></json-formatter>
-
         </div>
     </div>
 

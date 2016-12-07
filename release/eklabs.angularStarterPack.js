@@ -1,6 +1,6 @@
 /**
  * AngularJS Starter Pack
- * @version v0.2.5
+ * @version v0.2.6
  * @link 
  */
 
@@ -416,6 +416,7 @@ angular.module('eklabs.angularStarterPack.user')
                         }
 
                         recordUser(function(){
+
                             scope.cancel();
                         })
                     })

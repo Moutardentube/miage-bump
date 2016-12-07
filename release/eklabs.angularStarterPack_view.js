@@ -79,7 +79,7 @@ angular.module('eklabs.angularStarterPack').run(['$templateCache', function($tem
 
 
   $templateCache.put('eklabs.angularStarterPack/modules/user/directives/my-user-form/myUserForm.html',
-    "<form name=\"myUserForm\" id=\"myUserForm\" ng-submit=\"save()\" ng-style=\"{'min-height' : current_height, 'max-height' : current_height, overflow:'auto'}\">\n" +
+    "<form name=\"myUserForm\" id=\"myUserForm\" ng-style=\"{'min-height' : current_height, 'max-height' : current_height, overflow:'auto'}\">\n" +
     "\n" +
     "    <div layout=\"row\">\n" +
     "\n" +
@@ -129,7 +129,7 @@ angular.module('eklabs.angularStarterPack').run(['$templateCache', function($tem
     "        <span style=\"font-weight: 200\">Supprimer</span>\n" +
     "    </md-button>\n" +
     "\n" +
-    "    <md-button aria-label=\"valid\" type=\"submit\" ng-if=\"!isLoading\">\n" +
+    "    <md-button aria-label=\"valid\" ng-click=\"save()\" ng-if=\"!isLoading\">\n" +
     "        <md-icon md-svg-src=\"material-design:doneLB\" class=\"ic_16px\"></md-icon>\n" +
     "        <span style=\"font-weight: 200\">Valider</span>\n" +
     "    </md-button>\n" +

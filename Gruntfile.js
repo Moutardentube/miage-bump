@@ -2,7 +2,9 @@
 module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
-    require('grunt-angular-templates')(grunt);
+    // require('grunt-angular-templates')(grunt);
+    // require('grunt-contrib-compass')(grunt);
+    // require('grunt-contrib-cssmin')(grunt);
 
     grunt.loadNpmTasks('grunt-angular-templates');
     // --- Register npm task

@@ -70,3 +70,9 @@ div.demo-container input.demo{
 
 }
 .ace_editor { height: 400px; width:500px; }
+
+.tabLabel {
+    font-size: 1em;
+    font-weight: normal;
+    padding-bottom: 5px;
+}

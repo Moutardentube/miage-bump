@@ -11,9 +11,9 @@
   "state"       : "myForm"
 },
   {
-    "name"        : "User  with classique",
-    "description" : "Example how to use a directive",
-    "icon"        : "bookmark_border",
+    "name"        : "my-user-tab",
+    "description" : "Full user process",
+    "icon"        : "people",
     "state"       : "myForm2"
   }
 ]

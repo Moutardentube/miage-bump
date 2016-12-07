@@ -1,0 +1,61 @@
+<form name="myUserForm" id="myUserForm" ng-submit="save()" ng-style="{'min-height' : current_height, 'max-height' : current_height, overflow:'auto'}">
+
+    <div layout="row">
+
+        <div flex layout="column" layout-align="center center">
+
+            <img ng-src="{{user.getPicture()}}" style="width:100px; height: 100px; border-radius: 20px" ng-if="!avatarUploaded" />
+
+            <img ngf-src="picFile" style="width: 100px; height: 100px; border-radius: 20px" ng-if="avatarUploaded"/>
+
+            <md-button ngf-select ngf-change="changeAvatar($file)" aria-label="upload photo" accept="image/png, image/jpg, image/jpeg">
+                <md-icon md-svg-src="material-design:edit" class="blue-font ic_16px"></md-icon>
+                <span style="font-weight: 200">Changer de photo</span>
+            </md-button>
+
+        </div>
+
+        <div flex="5"></div>
+
+        <!-- General Information  -->
+        <div flex="70">
+
+            <md-input-container class="md-block">
+                <label>Nom complet de la personne</label>
+                <input ng-model="currentUser.name" required name="name" aria-label='user name'/>
+                <div ng-messages="myUserForm.name.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+
+        </div>
+    </div>
+</form>
+
+<div layout="row" layout-align="end center" class="md-whiteframe-10dp">
+
+    <div class="warn-font" style="font-size: 0.8em" ng-if="errors">
+        {{errors}}
+    </div>
+
+    <md-button aria-label="cancel" ng-click="cancel()" ng-if="!isLoading">
+        <md-icon md-svg-src="material-design:reply" class="ic_16px"></md-icon>
+        <span style="font-weight: 200">Annuler</span>
+    </md-button>
+
+    <md-button aria-label="delete" ng-click="delete()" ng-if="!isCreation && !isLoading">
+        <md-icon md-svg-src="material-design:delete" class="ic_16px"></md-icon>
+        <span style="font-weight: 200">Supprimer</span>
+    </md-button>
+
+    <md-button aria-label="valid" type="submit" ng-if="!isLoading">
+        <md-icon md-svg-src="material-design:doneLB" class="ic_16px"></md-icon>
+        <span style="font-weight: 200">Valider</span>
+    </md-button>
+
+    <div layout="row" ng-if="isLoading">
+        <md-progress-circular md-mode="indeterminate" md-diameter="20px"></md-progress-circular>
+        <span>In progress, please wait</span>
+    </div>
+
+</div>

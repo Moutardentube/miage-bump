@@ -16,6 +16,7 @@ angular.module('demoApp')
              */
             case        : 'Default Case',
             user        : undefined,
+            url         : undefined,
             callback    : undefined
         },{
             /**

@@ -7,7 +7,7 @@
 
 <div layout="column" layout-align="space-between stretch" layout-fill>
     <iframe flex="80"
-            ng-src="{{ url | trusted }}" ng-onload="actions.onLoad(url)"></iframe>
+            ng-src="{{ myUrl | trusted }}" ng-onload="actions.onLoad(myUrl)"></iframe>
 
     <div layout="row" layout-align="start center">
         <md-input-container>
@@ -27,11 +27,7 @@
             </div>
         </md-input-container>
 
-        <md-button type="submit" flex-offset="5"
-                   ng-click="actions.bump">
-            <md-icon md-svg-src="material-design:thumb_up"></md-icon>
-
-            Bump!
-        </md-button>
+        <demo-bump-button flex-offset="5"
+                          user="myUser" url="myUrl"></demo-bump-button>
     </div>
 </div>

@@ -27,7 +27,6 @@ angular.module('eklabs.angularStarterPack.bumpButton')
                 });
 
                 scope.$watch('user', function (user) {
-                    console.log(user);
                     scope.myUser = user;
                 });
 
@@ -40,21 +39,20 @@ angular.module('eklabs.angularStarterPack.bumpButton')
                     if (e.keyCode !== 13) {
                         return;
                     }
-                    scope.isLoading = true;
-
                     var url = e.target.value;
-                    scope.url = url;
+
+                    if (url === scope.myUrl) {
+                        return;
+                    }
+                    scope.isLoading = true;
                     scope.myUrl = url;
                 };
 
                 var defaultActions = {
-                    bump: function () {
-
-                    },
                     onLoad: function (url) { //Only called once per iframe lifetime
                         $log.info('Loaded url: ', url);
                         scope.isLoading = false;
-                        scope.$apply()
+                        scope.$apply();
                     }
                 };
 

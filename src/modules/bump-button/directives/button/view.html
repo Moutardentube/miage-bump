@@ -1,26 +1,5 @@
-<form name="form" ng-submit="actions.onValidate(user)">
+<md-button ng-click="actions.onBump(myUser, myUrl, $event)">
+    <md-icon md-svg-src="material-design:thumb_up"></md-icon>
 
-    <div layout="column">
-
-        <md-input-container>
-
-            <label>Last name</label>
-
-            <input name="name" ng-model="user.lastName" />
-        </md-input-container>
-
-        <md-input-container>
-
-            <label>First name</label>
-
-            <input name="first-name" ng-model="user.firstName" />
-        </md-input-container>
-    </div>
-
-    <md-button type="submit">
-
-        <md-icon md-svg-src="material-design:done"></md-icon>
-
-        Valider
-    </md-button>
-</form>
+    Bump!
+</md-button>

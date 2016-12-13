@@ -13,22 +13,6 @@
 
             <md-card style="padding:10px;overflow: auto" ng-style="{'max-height':maxHeight,'min-height':maxHeight}" layout="column" layout-align="start start" class="page_settings">
 
-                <!--<iframe ng-src="{{ url | trusted }}" flex="80" flex></iframe>
-
-                <div layout="row" flex="20">
-
-                    <md-input-container>
-
-                        <label>Website</label>
-
-                        <input ng-keypress="setUrl($event)" />
-
-                    </md-input-container>
-
-                    <md-progress-circular md-mode="indeterminate" ng-if="isLoading"></md-progress-circular>
-
-                </div>-->
-
                 <div ng-include="'pages/demoBump/code/directive-frame.html'" style="width: 100%" layout-fill></div>
 
             </md-card>

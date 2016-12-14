@@ -3,61 +3,64 @@
 'use strict';
 
 angular.module('demoApp')
-    .controller('demoFormCtrl', function($scope){
+    .controller('demoFormCtrl', function($scope, $http){
 
 
         // ----------------------------------------------------------------------------------------------------
         // ---- PARAMS CATALOGUE
         // ----------------------------------------------------------------------------------------------------
-
+ 
         $scope.params = [{
             /**
              * Default
              */
-            case        : 'Default Case',
-            user        : undefined,
-            callback    : undefined
+            case        : 'Oscar Amzalag',
+            user    : {
+                user_id : "1",
+            },
         },{
             /**
              * Case User
              */
-            case        : 'Case User',
-            user        : {
-                lastName    : 'Nom',
-                firstName   : 'Prénom'
+            case        : 'Anis Mezdari',
+            user    : {
+                user_id : "2",
             },
-            callback    : {
-                onValidate: function (user) {
-                    displayCode('onValidate', user);
-                }
-            }
         },{
             /**
              * Case JSON
              */
-            case        : 'Case inject Json',
-            options     : undefined,
-            json        : {"hello" : "world"},
-            callback    : undefined,
-            listeners   : undefined
+            case        : 'Clement Chaudat',
+            user    : {
+                user_id : "3",
+            },
+
+        },{
+            /**
+             * Case JSON
+             */
+            case        : 'Eugene De Rastignac',
+            user    : {
+                user_id : "4",
+            },
+
+        },{
+            /**
+             * Case JSON
+             */
+            case        : 'Aurelien Garret',
+            user    : {
+                user_id : "5",
+            },
 
         },{
             /**
              * Callback active
              */
-            case        : 'Case Callback and Function',
-            options     : undefined,
-            json        : undefined,
-            callback    : {
-                valid : function(json){
-                    displayCode('Callback : valid',json);
-                }
+            case        : 'Ludo Badjo',
+            user    : {
+                user_id : "6",
             },
-            listeners  : {
-                onError : function(errors){
-                    displayCode('Listeners : onError',errors,true);
-                }
-            }
         }];
 
         $scope.chooseParams = function(index){

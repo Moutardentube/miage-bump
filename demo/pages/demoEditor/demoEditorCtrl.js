@@ -1,7 +1,4 @@
 'use strict';
-
-'use strict';
-
 angular.module('demoApp')
     .controller('demoEditorCtrl', function($scope){
 
@@ -9,6 +6,12 @@ angular.module('demoApp')
         // ----------------------------------------------------------------------------------------------------
         // ---- PARAMS CATALOGUE
         // ----------------------------------------------------------------------------------------------------
+
+        $http.get('../../../../../bump.json').success(function(data) {    
+            questions = data;
+            console.log("bonjourr");
+            console.log(data);
+        }); 
 
         $scope.params = [{
             /**

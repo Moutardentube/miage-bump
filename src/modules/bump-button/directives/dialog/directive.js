@@ -4,14 +4,20 @@ angular.module('eklabs.angularStarterPack.bumpButton')
     .directive('demoBumpDialog', ['$log', function ($log) {
         return {
             templateUrl : 'eklabs.angularStarterPack/modules/bump-button/directives/dialog/view.html',
-            /*scope       : {
+            scope       : {
                 user        : '=',
+                url         : '=?',
+                tags        : '=?',
                 callback    : '=?'
             },
             link: function (scope) {
                 scope.$watch('user', function (user) {
                     scope.myUser = user;
                 });
+
+                scope.$watch('url', function (url) {
+                    scope.myUrl = url;
+                })
 
                 var defaultActions = {
                     onValidate: function (user) {
@@ -26,6 +32,6 @@ angular.module('eklabs.angularStarterPack.bumpButton')
                         scope.actions = defaultActions;
                     }
                 });
-            }*/
+            }
         }
     }]);

@@ -1,13 +1,28 @@
 <md-dialog aria-label="Bump?">
     <md-dialog-content>
-        <md-list>
-            <md-lists-item ng-repeat="tag in ['Tag 1', 'Tag 2', 'Tag 3']">
-                <div flex>{{ tag }}</div>
-            </md-lists-item>
+        <md-list layout="column" layout-padding>
+            <md-list-item layout="row" layout-align="space-between center">
+                <md-input-container>
+                    <input placeholder="Renseignez un tag"
+                           ng-model="tags[0]"/>
+                </md-input-container>
+                <md-button ng-click="addTag(tags[0])">
+                    <md-icon md-svg-src="material-design:add"></md-icon>
+                </md-button>
+            </md-list-item>
+            <md-list-item layout="row" layout-align="space-between center"
+                          ng-repeat="tag in tags" ng-if="$index > 0">
+                <md-input-container>
+                    <input ng-model="tag"/>
+                </md-input-container>
+                <md-button ng-click="deleteTag($index)">
+                    <md-icon md-svg-src="material-design:delete"></md-icon>
+                </md-button>
+            </md-list-item>
         </md-list>
     </md-dialog-content>
     <md-dialog-actions>
-        <md-button ng-click="closeDialog()" class="md-primary">Cancel</md-button>
-        <md-button ng-click="closeDialog()" class="md-primary">Bump!</md-button>
+        <md-button ng-click="closeDialog()">Cancel</md-button>
+        <md-button ng-click="confirmBump()">Bump!</md-button>
     </md-dialog-actions>
 </md-dialog>

@@ -1,9 +1,7 @@
 'use strict';
 
-'use strict';
-
 angular.module('demoApp')
-    .controller('demoBumpCtrl', function($scope){
+    .controller('demoBumpCtrl', function ($scope){
 
 
         // ----------------------------------------------------------------------------------------------------
@@ -17,8 +15,9 @@ angular.module('demoApp')
             case        : 'Default Case',
             user        : undefined,
             url         : '',
-            callback    : undefined
-        },{
+            callback    : undefined,
+            options     : undefined
+        }, {
             /**
              * Case User
              */
@@ -28,41 +27,20 @@ angular.module('demoApp')
                 name    : 'Ludo Babadjo'
             },
             url         : 'https://www.dealabs.com/bons-plans/magnum-de-15l-de-chouffe/296071',
-            callback    : {
-                onEnter     : function (user, url) {
-
-                },
-                onValidate  : function (user) {
-                    displayCode('onValidate', user);
-                }
-            }
-        },{
-            /**
-             * Case JSON
-             */
-            case        : 'Case inject Json',
-            options     : undefined,
-            json        : {"hello" : "world"},
             callback    : undefined,
-            listeners   : undefined
+            options     : undefined
 
-        },{
+        }, {
             /**
              * Callback active
              */
             case        : 'Case Callback and Function',
-            options     : undefined,
-            json        : undefined,
             callback    : {
-                valid : function(json){
-                    displayCode('Callback : valid',json);
+                valid : function (json) {
+                    displayCode('Callback', json);
                 }
             },
-            listeners  : {
-                onError : function(errors){
-                    displayCode('Listeners : onError',errors,true);
-                }
-            }
+            options     : undefined
         }];
 
         $scope.chooseParams = function(index){
@@ -71,8 +49,6 @@ angular.module('demoApp')
             $scope.myCallback   = $scope.params[index].callback;
             $scope.myUrl        = $scope.params[index].url;
 
-            $scope.index        = index;
-            $scope.refresh      = moment().valueOf();
             $scope.haveResult   = false;
         };
 
@@ -80,7 +56,7 @@ angular.module('demoApp')
         $scope.chooseParams(0);
 
         // --- Update result viewer
-        var displayCode = function(from,code,isError){
+        var displayCode = function (from, code, isError){
 
             $scope.haveResult   = true;
 
@@ -96,7 +72,7 @@ angular.module('demoApp')
         $scope.displayCode  = false;
         $scope.maxHeight    = $(window).height() - 250;
 
-        $scope.showCode = function(){
+        $scope.showCode = function () {
             $scope.displayCode = !$scope.displayCode;
         };
 
@@ -108,10 +84,10 @@ angular.module('demoApp')
             title : 'directive bump-button',
             haveCodeSource : true,
             code : [{
-                link : 'pages/demoBump/code/directive.html',
+                link : 'pages/demoBump/code/directive-button.html',
                 language : 'html',
                 title : 'Code HTML de la directive demo-bump-button'
-            },{
+            }, {
                 link : 'pages/demoBump/code/contract.json',
                 language : 'json',
                 title : 'Params available for the directive demo-bump-button'
@@ -121,9 +97,9 @@ angular.module('demoApp')
         /**
          * MODE Fullscreen
          */
-        $scope.fullScreenMode = true;
-        $scope.hideParams     = false;
-        $scope.fullScreen = function(){
+        $scope.fullScreenMode   = true;
+        $scope.hideParams       = false;
+        $scope.fullScreen       = function () {
             $scope.hideParams = !$scope.hideParams;
         };
 

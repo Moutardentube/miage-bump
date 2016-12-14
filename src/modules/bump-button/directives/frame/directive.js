@@ -29,7 +29,6 @@ angular.module('eklabs.angularStarterPack.bumpButton')
                 var urlInput = element.find('#input-url');
 
                 scope.$watch('user', function (user) {
-                    $log.info(user);
                     scope.myUser = user;
                 });
 
@@ -78,17 +77,4 @@ angular.module('eklabs.angularStarterPack.bumpButton')
                 });
             }
         }
-    }])
-    /*.directive('demoReadyFrame', ['$log', function ($log) {
-        return {
-            templateUrl : 'eklabs.angularStarterPack/modules/bump-button/directives/frame/view.html',
-            scope       : {
-                user        : '=?',
-                url         : '=',
-                callback    : '=?'
-            },
-            link: function (scope) {
-
-            }
-        }
-    }])*/;
+    }]);

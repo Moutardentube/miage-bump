@@ -6,7 +6,7 @@ angular.module('eklabs.angularStarterPack.bumpButton')
             templateUrl : 'eklabs.angularStarterPack/modules/bump-button/directives/button/view.html',
             scope       : {
                 user        : '=',
-                url         : '=',
+                url         : '=?',
                 tags        : '=?',
                 callback    : '=?'
             },

@@ -1,6 +1,7 @@
 {
   "user"      : "Resource User",
+  "url"       : "string",
   "callback"  : {
-    "onValidate"  : "function (user) {}"
+    "onBump"  : "function (user, url) {}"
   }
 }

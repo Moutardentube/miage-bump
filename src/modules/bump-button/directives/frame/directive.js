@@ -26,14 +26,25 @@ angular.module('eklabs.angularStarterPack.bumpButton')
                     scope.$apply();
                 });
 
+                var urlInput = element.find('#input-url');
+
                 scope.$watch('user', function (user) {
+                    $log.info(user);
                     scope.myUser = user;
                 });
 
-                /*scope.$watch('url', function (url) {
-                    console.log(url);
-                    scope.myUrl = url;
-                });*/
+                scope.$watch('url', function (url) {
+                    scope.myUrl = typeof url === 'string' && url.length > 0 ? url : 'about:blank';
+                    scope.isLoading = true;
+
+                    urlInput.prop('value', url);
+                    urlInput.triggerHandler('focus');
+                    urlInput.triggerHandler('blur');
+                });
+
+                scope.setUser = function (e) {
+
+                };
 
                 scope.setUrl = function (e) {
                     if (e.keyCode !== 13) {

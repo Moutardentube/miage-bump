@@ -16,7 +16,7 @@ angular.module('demoApp')
              */
             case        : 'Default Case',
             user        : undefined,
-            url         : undefined,
+            url         : '',
             callback    : undefined
         },{
             /**
@@ -24,11 +24,15 @@ angular.module('demoApp')
              */
             case        : 'Case User',
             user        : {
-                lastName    : 'Nom',
-                firstName   : 'Prénom'
+                id      : '',
+                name    : 'Ludo Babadjo'
             },
+            url         : 'https://www.dealabs.com/bons-plans/magnum-de-15l-de-chouffe/296071',
             callback    : {
-                onValidate: function (user) {
+                onEnter     : function (user, url) {
+
+                },
+                onValidate  : function (user) {
                     displayCode('onValidate', user);
                 }
             }
@@ -65,6 +69,7 @@ angular.module('demoApp')
             // --- Define current status
             $scope.myUser       = $scope.params[index].user;
             $scope.myCallback   = $scope.params[index].callback;
+            $scope.myUrl        = $scope.params[index].url;
 
             $scope.index        = index;
             $scope.refresh      = moment().valueOf();
@@ -107,7 +112,7 @@ angular.module('demoApp')
                 language : 'html',
                 title : 'Code HTML de la directive demo-bump-button'
             },{
-                link : 'pages/demoForm/code/contract.json',
+                link : 'pages/demoBump/code/contract.json',
                 language : 'json',
                 title : 'Params available for the directive demo-bump-button'
             }]

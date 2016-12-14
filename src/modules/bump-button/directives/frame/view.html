@@ -13,13 +13,14 @@
         <md-input-container>
             <label>User</label>
 
-            <input ng-model="myUser" />
+            <input ng-model="myUser.name" ng-keypress="setUser($event)" />
         </md-input-container>
 
         <md-input-container>
             <label>Website</label>
 
-            <input ng-keypress="setUrl($event)" />
+            <input id="input-url"
+                   ng-keypress="setUrl($event)" />
 
             <div layout="row" layout-align="end center">
                 <md-progress-circular md-mode="indeterminate" md-diameter="26"

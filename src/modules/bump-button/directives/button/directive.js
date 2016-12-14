@@ -7,6 +7,7 @@ angular.module('eklabs.angularStarterPack.bumpButton')
             scope       : {
                 user        : '=',
                 url         : '=',
+                tags        : '=?',
                 callback    : '=?'
             },
             link: function (scope) {

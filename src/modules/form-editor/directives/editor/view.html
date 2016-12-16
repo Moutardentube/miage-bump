@@ -1,11 +1,40 @@
-<form name="form" ng-submit="actions.onValidate(user)">
+<md-content layout-fill layout="row">
+
+<md-list style="height: 90%; overflow: auto" flex="30">
+
+            <md-list-item class="md-2-line" ng-click="displayTagonTag(item)" ng-repeat= "item in tagList">
+                <!-- <img ng-if="" ng-src="" class="md-avatar" alt="{{person.name}}" /> -->
+                <div class="md-list-item-text" >
+                    <h3>{{ item }}</h3>
+
+                </div>
+                <h6 style = "color : grey;font-style : italic;margin-right : 5px;" > {{item.bumpCount}} </h6>
+
+                <div class ="md-list-item-status" layout="column">
+                    <md-icon md-svg-src="material-design:account_circle" aria-label="android" style="color : blue"></md-icon>
+                </div>
+            </md-list-item>
 
 
-    <div ng-repeat = "article in listeArticleDuUser track by $index">
-        <label ng-if="article.choice"> - {{article.choice}}</label>
+</md-list>
 
-        <label> {{article.title}}</label>
-        <label> {{article.url}}</label>
-    </div>
+<div style = "background-color: white;" flex = "70">
+  <md-list style="height: 90%; overflow: auto;" flex="30">
 
-</form>
+              <md-list-item class="md-2-line" ng-click="displayTagonTag(item.tag)" ng-if = "displayTag != null" ng-repeat = "tag in tags | orderBy : '-bumpCount'"">
+                  <!-- <img ng-if="" ng-src="" class="md-avatar" alt="{{person.name}}" /> -->
+                  <div class="md-list-item-text">
+                      <h3>  {{tag.tag}} </h3>
+
+                  </div>
+                  <h6 style = "color : grey;font-style : italic;margin-right : 5px;" > {{tag.bumpCount}} </h6>
+
+                  <div class ="md-list-item-status" layout="column">
+                      <md-icon md-svg-src="material-design:account_circle" aria-label="android" style="color : blue"></md-icon>
+                  </div>
+              </md-list-item>
+
+
+  </md-list>
+</div>
+</md-content>

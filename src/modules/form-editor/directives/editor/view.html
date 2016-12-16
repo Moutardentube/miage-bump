@@ -1,18 +1,30 @@
+
+
+<md-toolbar class"md-hue-2">
+  <div class="md-toolbar-tools">
+    <img src="http://www.bus-stac.fr/var/site/storage/images/4/0/2/2/2204-1-eng-GB/B.png"  width = "40" alt = "bump"/>
+  <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
+    <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+  </md-button>
+  <h2>
+    <span>Bump Viewer</span>
+  </h2>
+  
+
+</div>
+</md-toolbar>
+
 <md-content layout-fill layout="row">
 
 <md-list style="height: 90%; overflow: auto" flex="30">
 
-            <md-list-item class="md-2-line" ng-click="displayTagonTag(item)" ng-repeat= "item in tagList">
+            <md-list-item class="md-2-line" ng-click="displayTagonTag(item)" ng-repeat= "item in tagList" style="background-color: lightgrey;">
                 <!-- <img ng-if="" ng-src="" class="md-avatar" alt="{{person.name}}" /> -->
                 <div class="md-list-item-text" >
                     <h3>{{ item }}</h3>
 
                 </div>
                 <h6 style = "color : grey;font-style : italic;margin-right : 5px;" > {{item.bumpCount}} </h6>
-
-                <div class ="md-list-item-status" layout="column">
-                    <md-icon md-svg-src="material-design:account_circle" aria-label="android" style="color : blue"></md-icon>
-                </div>
             </md-list-item>
 
 
@@ -21,16 +33,17 @@
 <div style = "background-color: white;" flex = "70">
   <md-list style="height: 90%; overflow: auto;" flex="30">
 
-              <md-list-item class="md-2-line" ng-click="displayTagonTag(item.tag)" ng-if = "displayTag != null" ng-repeat = "tag in tags | orderBy : '-bumpCount'"">
+              <md-list-item class="md-2-line" ng-click="displayTagonTag(item.tag)" ng-if = "displayTag != null" ng-repeat = "bump in underTag | orderBy : '-bumpCount'">
                   <!-- <img ng-if="" ng-src="" class="md-avatar" alt="{{person.name}}" /> -->
                   <div class="md-list-item-text">
-                      <h3>  {{tag.tag}} </h3>
-
+                       {{bump.tag}}
                   </div>
-                  <h6 style = "color : grey;font-style : italic;margin-right : 5px;" > {{tag.bumpCount}} </h6>
 
+                  <div class ="md-list-item-status" style = "font-weight : bold; font-style : italic; margin-right : 5px;" layout="column">
+                      {{bump.count}}
+                  </div>
                   <div class ="md-list-item-status" layout="column">
-                      <md-icon md-svg-src="material-design:account_circle" aria-label="android" style="color : blue"></md-icon>
+                      <img src="http://www.bus-stac.fr/var/site/storage/images/4/0/2/2/2204-1-eng-GB/B.png"  width = "20" alt = "bump"/>
                   </div>
               </md-list-item>
 

@@ -9,28 +9,28 @@ angular.module('demoApp')
         // ----------------------------------------------------------------------------------------------------
         // ---- PARAMS CATALOGUE
         // ----------------------------------------------------------------------------------------------------
- 
+
         $scope.params = [{
             /**
              * Default
              */
-            case        : 'Oscar Amzalag',
+            case        : 'Anis Mezdari',
             user    : {
-                user_id : "1",
+                user_id : "585262e90532ac18c82348d5",
             },
         },{
             /**
              * Case User
              */
-            case        : 'Anis Mezdari',
+            case        : 'Drouhin Antoine',
             user    : {
-                user_id : "2",
+                user_id : "5851de040532ac18c82348d4",
             },
         },{
             /**
              * Case JSON
              */
-            case        : 'Clement Chaudat',
+            case        : 'Saker Annas',
             user    : {
                 user_id : "3",
             },
@@ -48,7 +48,7 @@ angular.module('demoApp')
             /**
              * Case JSON
              */
-            case        : 'Aurelien Garret',
+            case        : 'Amzalag Oscar',
             user    : {
                 user_id : "5",
             },

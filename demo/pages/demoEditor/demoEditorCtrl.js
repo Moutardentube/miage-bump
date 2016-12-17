@@ -1,7 +1,4 @@
 'use strict';
-
-'use strict';
-
 angular.module('demoApp')
     .controller('demoEditorCtrl', function($scope){
 

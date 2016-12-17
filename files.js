@@ -12,6 +12,8 @@ modelFiles = {
 
         'src/modules/bump-button/module.js',
         'src/modules/bump-button/{,**/}*.js',
+        'src/modules/bump-profile/module.js',
+        'src/modules/bump-profile/{,**/}*.js',
         
         'src/modules/forms/module.js',
         'src/modules/forms/{,**/}*.js',

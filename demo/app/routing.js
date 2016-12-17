@@ -38,9 +38,15 @@ angular.module('demoApp')
         // DEMO BUMP Component
         // ------------------------------------------------------------------------------------------------
         .state('bumpButton', {
-            url : '/bump-button',
-            controller : 'demoBumpCtrl',
-            templateUrl : "pages/demoBump/demoBumpView.html"
+            url: '/bump-button',
+            controller: 'demoBumpCtrl',
+            templateUrl: "pages/demoBump/demoBumpView.html"
+        })
+
+        .state('bumpProfile', {
+            url : '/bump-profile',
+            controller : 'demoBumpProfileCtrl',
+            templateUrl : "pages/demoBumpProfile/demoBumpProfileView.html"
         })
 
 

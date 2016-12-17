@@ -1,0 +1,57 @@
+ 
+<div layout="column" ng-cloak>
+
+    <div ng-include="'pages/_templates/page_title.html'"></div>
+
+    <div ng-if="!displayCode" md-scroll-y layout-sm="column" layout="row" layout-padding>
+
+        <!-- _____ DEMO -->
+        <div layout="column" flex>
+
+            <h2 class="title" layout="row" layout-align="start start">
+                Directive Render
+            </h2>
+
+            <md-card style="padding:10px;overflow: auto" ng-style="{'max-height':maxHeight,'min-height':maxHeight}" layout="column" layout-align="start start" class="page_settings">
+
+                <div ng-include="'pages/demoBumpProfile/code/directive.html'" style="width: 100%"></div>
+
+            </md-card>
+
+        </div>
+        <!-- END DEMO -->
+
+        <div flex="5" ng-show="!hideParams"></div>
+
+        <!-- _____ OPTION -->
+        <div layout="column" flex-gt-sm="25" flex ng-show="!hideParams">
+
+            <h2 class="title" style="width:100%">Use Case</h2>
+            <md-list layout="column" layout-sm="column" layout-align="start start" style="width: 100%;">
+
+                <md-list-item ng-repeat="option in params track by $index" ng-click="chooseParams($index)"
+                              style="font-size: 0.8em;;width: 100%" flex>
+
+                    <md-icon md-svg-src="material-design:check_box" ng-if="$index == index"></md-icon>
+                    <md-icon md-svg-src="material-design:check_box_outline" ng-if="$index != index"></md-icon>
+
+                    <span style="padding-right:25px">{{option.case}}</span>
+
+                    <span flex></span>
+
+                </md-list-item>
+            </md-list>
+
+            <h2 class="title" style="width:100%" ng-if="haveResult" ng-class="{'warn-font' : result.isError}">{{result.title}}</h2>
+            <json-formatter json="result.code" open="1" ng-if="haveResult"></json-formatter>
+
+        </div>
+    </div>
+
+    <!-- _____ CODE -->
+    <md-content layout="column" flex ng-if="displayCode" md-scroll-y ng-style="{'max-height':maxHeight}" layout-padding>
+        <div ng-include="'pages/_templates/page_code.html'"></div>
+    </md-content>
+    <!-- END -->
+
+</div>

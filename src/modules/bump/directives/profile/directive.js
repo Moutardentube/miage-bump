@@ -8,10 +8,13 @@ angular.module('eklabs.angularStarterPack.bump', ['ngMaterial'])
                 user: '='
             },
             link: function (scope) {
-                scope.tagList = [];
-                scope.bumps = [];
+                scope.bumps = new Bumps();
+                scope.userBumps = [];
+                scope.userTags = [];
+                scope.trendingTags = [];
                 scope.selectedTag = null;
-                var bumps = new Bumps();
+
+                scope.bumps.fetch();
 
                 scope.$watch('user', function (user) {
                     scope.myUser = user;
@@ -19,13 +22,14 @@ angular.module('eklabs.angularStarterPack.bump', ['ngMaterial'])
                     if (user === undefined) {
                         return;
                     }
-                    fetchBumps(user);
+                    getBumps();
+                    getFriendsBumps();
                 });
 
                 scope.getRelatedTags = function (tag) {
                     scope.selectedTag = tag;
                     //Filter unrelated bumps out
-                    scope.relatedTags = scope.bumps.filter(function (bump) {
+                    scope.relatedTags = scope.userBumps.filter(function (bump) {
                         return bump.tags.indexOf(tag) !== -1;
                     //Flatten nested tags within bumps
                     }).reduce(function (acc, curr) {
@@ -39,25 +43,38 @@ angular.module('eklabs.angularStarterPack.bump', ['ngMaterial'])
 
                         return acc;
                     }, {});
+
                     $log.info('Related tags: ', scope.relatedTags);
                 };
 
-                function fetchBumps(user) {
-                    bumps.findByUser(user).then(function (response) {
-                        scope.bumps = response;
-                        var newTags;
-                        //Flatten nested tags within bumps
-                        scope.tagList = scope.bumps.reduce(function (acc, curr) {
-                            //Isolate new tags
-                            newTags = curr.tags.filter(function (item) {
-                                return acc.indexOf(item) == -1
-                            });
-                            return acc.concat(newTags);
-                        }, []);
-                        $log.info('Tag list: ', scope.tagList);
-                    }, function (reason) {
-                        $log.error('Bumps fetching failed: ' + reason);
-                    });
+                function getBumps() {
+                    scope.userBumps = scope.bumps.filterByUser(scope.user.id);
+                    var newTags;
+                    //Flatten nested tags within bumps
+                    scope.userTags = scope.userBumps.reduce(function (acc, curr) {
+                        //Isolate new tags
+                        newTags = curr.tags.filter(function (item) {
+                            return acc.indexOf(item) == -1
+                        });
+                        return acc.concat(newTags);
+                    }, []);
+
+                    $log.info('Tag list: ', scope.userTags);
+                }
+
+                function getFriendsBumps() {
+                    var friendsBumps = scope.bumps.filterByUsers(scope.user.friends);
+                    //Flatten nested tags within bumps
+                    scope.trendingTags = friendsBumps.reduce(function (acc, curr) {
+                        return acc.concat(curr.tags);
+                    //Count each tag occurrences
+                    }, []).reduce(function (acc, curr) {
+                        acc[curr] = (acc[curr] || 0) + 1;
+
+                        return acc;
+                    }, {});
+
+                    $log.info('Trending tags: ', scope.trendingTags);
                 }
             }
         }

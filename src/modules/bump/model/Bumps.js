@@ -28,23 +28,25 @@ angular.module('eklabs.angularStarterPack.bump')
         };
 
         /**
-         * Retrieve bumps from a specific user
+         * Filter bumps from a specific user
          * @param {string} userId
-         * @returns {jQuery.promise|promise.promise|Function|Promise}
+         * @returns {Array.<Bump>}
          */
-        Bumps.prototype.findByUser = function (userId) {
-            var defer = $q.defer();
-
-            this.fetch().then(function () {
-                var userBumps = this.items.filter(function (bump) {
-                    return bump.userId === userId;
-                });
-                defer.resolve(userBumps);
-            }.bind(this), function (reason) {
-                defer.reject(reason);
+        Bumps.prototype.filterByUser = function (userId) {
+            return this.items.filter(function (bump) {
+                return bump.userId === userId;
             });
+        };
 
-            return defer.promise;
+        /**
+         * Filter bumps from a specifc user's friends
+         * @param {Array.<string>} usersIds
+         * @returns {Array.<Bump>}
+         */
+        Bumps.prototype.filterByUsers = function (usersIds) {
+            return this.items.filter(function (bump) {
+                return usersIds.indexOf(bump.userId) !== -1;
+            });
         };
 
         /**

@@ -14,7 +14,7 @@
 
 <md-content layout-fill layout="row">
     <md-list style="height: 90%; overflow: auto" flex="30">
-        <md-list-item class="md-2-line" ng-click="getRelatedTags(item)" ng-repeat="item in tagList"
+        <md-list-item class="md-2-line" ng-click="getRelatedTags(item)" ng-repeat="item in userTags"
                       style="background-color: lightgrey;">
             <!-- <img ng-if="" ng-src="" class="md-avatar" alt="{{person.name}}" /> -->
 
@@ -22,7 +22,7 @@
                 <h3>{{ item }}</h3>
             </div>
 
-            <h6 style="color : grey;font-style : italic;margin-right : 5px;"> {{item.bumpCount}} </h6>
+            <h6 style="color : grey;font-style : italic;margin-right : 5px;"> {{ item.bumpCount }} </h6>
         </md-list-item>
 
     </md-list>

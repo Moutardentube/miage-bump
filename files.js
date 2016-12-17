@@ -16,10 +16,8 @@ modelFiles = {
         'src/modules/user/module.js',
         'src/modules/user/{,**/}*.js',
 
-        'src/modules/bump-button/module.js',
-        'src/modules/bump-button/{,**/}*.js',
-        'src/modules/bump-profile/module.js',
-        'src/modules/bump-profile/{,**/}*.js',
+        'src/modules/bump/module.js',
+        'src/modules/bump/{,**/}*.js',
 
         'src/module.js',
         'src/filters/{,**/}*.js'

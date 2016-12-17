@@ -81,16 +81,16 @@ angular.module('demoApp')
          * @type {{title: string, icon: string, haveCodeSource: boolean}}
          */
         $scope.page         = {
-            title : 'directive bump-button',
+            title : 'directive bump',
             haveCodeSource : true,
             code : [{
-                link : 'pages/demoBump/code/directive-button.html',
+                link : 'pages/demoBumpButton/code/directive-button.html',
                 language : 'html',
-                title : 'Code HTML de la directive demo-bump-button'
+                title : 'Code HTML de la directive demo-bump'
             }, {
-                link : 'pages/demoBump/code/contract.json',
+                link : 'pages/demoBumpButton/code/contract.json',
                 language : 'json',
-                title : 'Params available for the directive demo-bump-button'
+                title : 'Params available for the directive demo-bump'
             }]
         };
 

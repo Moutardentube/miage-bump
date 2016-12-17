@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('eklabs.angularStarterPack.bumpProfile', ['ngMaterial'])
-    .directive('demoBumpProfile', ['$log', '$http', '$config', function ($log, $http, $config) {
+angular.module('eklabs.angularStarterPack.bump', ['ngMaterial'])
+    .directive('bumpProfile', ['$log', '$http', '$config', function ($log, $http, $config) {
         return {
-            templateUrl: 'eklabs.angularStarterPack/modules/bump-profile/directives/editor/view.html',
+            templateUrl: 'eklabs.angularStarterPack/modules/bump/directives/profile/view.html',
             scope: {
                 user: '='
             },

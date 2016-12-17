@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('eklabs.angularStarterPack.bump', ['ngMaterial'])
-    .directive('bumpProfile', ['$log', '$http', '$config', function ($log, $http, $config) {
+    .directive('bumpProfile', function ($log, Bumps) {
         return {
             templateUrl: 'eklabs.angularStarterPack/modules/bump/directives/profile/view.html',
             scope: {
@@ -11,6 +11,7 @@ angular.module('eklabs.angularStarterPack.bump', ['ngMaterial'])
                 scope.tagList = [];
                 scope.bumps = [];
                 scope.selectedTag = null;
+                var bumps = new Bumps();
 
                 scope.$watch('user', function (user) {
                     scope.myUser = user;
@@ -25,10 +26,10 @@ angular.module('eklabs.angularStarterPack.bump', ['ngMaterial'])
                     scope.selectedTag = tag;
                     //Filter unrelated bumps out
                     scope.relatedTags = scope.bumps.filter(function (bump) {
-                        return bump.tag.indexOf(tag) !== -1;
+                        return bump.tags.indexOf(tag) !== -1;
                     //Flatten nested tags within bumps
                     }).reduce(function (acc, curr) {
-                        return acc.concat(curr.tag);
+                        return acc.concat(curr.tags);
                     //Exclude self
                     }, []).filter(function (sibling) {
                         return sibling !== tag;
@@ -42,29 +43,22 @@ angular.module('eklabs.angularStarterPack.bump', ['ngMaterial'])
                 };
 
                 function fetchBumps(user) {
-                    $http.get($config.get('api') + '/bump').then(function (response) {
-                        //Filter invalid entries out then match on user
-                        scope.bumps = response.data.filter(function (bump) {
-                            return typeof bump === 'object' && bump.idUser == user;
-                        });
-                        $log.info(scope.bumps);
+                    bumps.findByUser(user).then(function (response) {
+                        scope.bumps = response;
+                        var newTags;
                         //Flatten nested tags within bumps
                         scope.tagList = scope.bumps.reduce(function (acc, curr) {
                             //Isolate new tags
-                            var newTags = curr.tag.filter(function (item) {
+                            newTags = curr.tags.filter(function (item) {
                                 return acc.indexOf(item) == -1
                             });
-
-                            if (newTags.length > 0) {
-                                return acc.concat(newTags);
-                            }
-                            return acc;
+                            return acc.concat(newTags);
                         }, []);
                         $log.info('Tag list: ', scope.tagList);
-                    }, function (response) {
-
+                    }, function (reason) {
+                        $log.error('Bumps fetching failed: ' + reason);
                     });
                 }
             }
         }
-    }]);
+    });

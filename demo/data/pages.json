@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 [{
   "name"        : "JSON Editor",
   "description" : "Example of demo interface with a JSON Editor UI-ACE",
@@ -22,19 +21,11 @@
     "description" : "Example of demo interface with a Bump Button UI-ACE",
     "icon"        : "thumb_up",
     "state"       : "bumpButton"
-=======
-[
-  {
-    "name"        : "JSON Editor",
-    "description" : "Example of demo interface with a JSON Editor UI-ACE",
-    "icon"        : "code",
-    "state"       : "jsonEditor"
   },
   {
     "name"        : "Bump Profile",
     "description" : "Example of demo interface with a Bump Profile UI-ACE",
     "icon"        : "thumb_up",
     "state"       : "bumpProfile"
->>>>>>> bumpListJson
   }
 ]

@@ -25,10 +25,10 @@ angular.module('demoApp')
         // ------------------------------------------------------------------------------------------------
         // DEMO FORM Component
         // ------------------------------------------------------------------------------------------------
-        .state('formEditor', {
-            url : '/form-editor',
-            controller : 'demoFormCtrl',
-            templateUrl : "pages/demoForm/demoFormView.html"
+        .state('bumpProfile', {
+            url : '/bump-profile',
+            controller : 'demoBumpProfileCtrl',
+            templateUrl : "pages/demoBumpProfile/demoBumpProfileView.html"
         })
 
 

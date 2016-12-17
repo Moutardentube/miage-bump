@@ -3,7 +3,7 @@
 angular.module('eklabs.angularStarterPack.formEditor')
     .directive('demoFormEditor', ['$log', function ($log) {
         return {
-            templateUrl : 'eklabs.angularStarterPack/modules/form-editor/directives/editor/view.html',
+            templateUrl : 'eklabs.angularStarterPack/modules/bump-profile/directives/editor/view.html',
             scope       : {
                 user        : '=',
                 callback    : '=?'

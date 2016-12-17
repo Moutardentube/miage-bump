@@ -3,17 +3,17 @@
 /**
  * Crossdomain resources trusting
  */
-angular.module('eklabs.angularStarterPack.bumpButton')
+angular.module('eklabs.angularStarterPack.bump')
     .filter('trusted', function ($sce) {
         return function (url) {
             return $sce.trustAsResourceUrl(url);
         }
     });
 
-angular.module('eklabs.angularStarterPack.bumpButton')
-    .directive('demoBumpFrame', ['$log', function ($log) {
+angular.module('eklabs.angularStarterPack.bump')
+    .directive('bumpFrame', ['$log', function ($log) {
         return {
-            templateUrl : 'eklabs.angularStarterPack/modules/bump-button/directives/frame/view.html',
+            templateUrl : 'eklabs.angularStarterPack/modules/bump/directives/frame/view.html',
             scope       : {
                 user        : '=?',
                 url         : '=',

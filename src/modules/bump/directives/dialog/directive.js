@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('eklabs.angularStarterPack.bumpButton')
-    .directive('demoBumpDialog', ['$log', function ($log) {
+angular.module('eklabs.angularStarterPack.bump')
+    .directive('bumpDialog', ['$log', function ($log) {
         return {
-            templateUrl : 'eklabs.angularStarterPack/modules/bump-button/directives/dialog/view.html',
+            templateUrl : 'eklabs.angularStarterPack/modules/bump/directives/dialog/view.html',
             scope       : {
                 user        : '=',
                 url         : '=?',

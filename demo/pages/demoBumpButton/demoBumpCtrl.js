@@ -49,6 +49,7 @@ angular.module('demoApp')
             $scope.myCallback   = $scope.params[index].callback;
             $scope.myUrl        = $scope.params[index].url;
 
+            $scope.index        = index;
             $scope.haveResult   = false;
         };
 

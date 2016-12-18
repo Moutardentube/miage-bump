@@ -14,7 +14,7 @@
 
 <md-content layout-fill layout="row">
     <md-list style="height: 90%; overflow: auto" flex="30">
-        <md-list-item class="md-2-line" ng-click="getRelatedTags(item)" ng-repeat="item in userTags"
+        <md-list-item class="md-2-line" ng-click="getRelatedTags(item)" ng-repeat="(item, count) in userTags"
                       style="background-color: lightgrey;">
             <!-- <img ng-if="" ng-src="" class="md-avatar" alt="{{person.name}}" /> -->
 

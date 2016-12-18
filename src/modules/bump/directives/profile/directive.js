@@ -11,6 +11,7 @@ angular.module('eklabs.angularStarterPack.bump', ['ngMaterial'])
                 scope.bumps = new Bumps();
                 scope.userBumps = [];
                 scope.userTags = [];
+                scope.userTagCount = 0;
                 scope.trendingTags = [];
                 scope.selectedTag = null;
 
@@ -24,6 +25,7 @@ angular.module('eklabs.angularStarterPack.bump', ['ngMaterial'])
                     }
                     getBumps();
                     getFriendsBumps();
+                    getMatchingProfiles();
                 });
 
                 scope.getRelatedTags = function (tag) {
@@ -49,17 +51,20 @@ angular.module('eklabs.angularStarterPack.bump', ['ngMaterial'])
 
                 function getBumps() {
                     scope.userBumps = scope.bumps.filterByUser(scope.user.id);
-                    var newTags;
                     //Flatten nested tags within bumps
                     scope.userTags = scope.userBumps.reduce(function (acc, curr) {
-                        //Isolate new tags
-                        newTags = curr.tags.filter(function (item) {
-                            return acc.indexOf(item) == -1
-                        });
-                        return acc.concat(newTags);
-                    }, []);
+                        return acc.concat(curr.tags);
+                    //Count each tag occurrences
+                    }, []).reduce(function (acc, curr) {
+                        acc[curr] = (acc[curr] || 0) + 1;
+                        //Increment total tag count for user
+                        scope.userTagCount++;
+
+                        return acc;
+                    }, {});
 
                     $log.info('Tag list: ', scope.userTags);
+                    $log.info(scope.userTagCount);
                 }
 
                 function getFriendsBumps() {
@@ -75,6 +80,47 @@ angular.module('eklabs.angularStarterPack.bump', ['ngMaterial'])
                     }, {});
 
                     $log.info('Trending tags: ', scope.trendingTags);
+                }
+
+                function getMatchingProfiles() {
+                    var strangersMatches    = {},
+                        strangersBumps      = scope.bumps.filterByUsers(scope.user.friends, true);
+                    //Flatten and merge tags for each user
+                    var strangersTags = strangersBumps.reduce(function (acc, curr) {
+                        acc[curr.userId] = (acc[curr.userId] || []).concat(curr.tags);
+
+                        return acc;
+                    }, {});
+                    //Compute match for each stranger
+                    angular.forEach(Object.keys(strangersTags), function (id) {
+                        var softMatch           = 0,
+                            deepMatch           = 0,
+                            strangerTagCount    = 0;
+                        //Indexed count for each tag
+                        var tagsCounts = strangersTags[id].reduce(function (acc, curr) {
+                            acc[curr] = (acc[curr] || 0) + 1;
+                            //Increment tag count for user
+                            strangerTagCount++;
+
+                            return acc;
+                        }, {});
+                        //Increase match for every matching tag
+                        angular.forEach(tagsCounts, function (count, tag) {
+                            if (tag in scope.userTags) {
+                                //A shared tag increases the match
+                                softMatch += 1 / Object.keys(tagsCounts).length;
+
+                                var tagRatio    = (count / strangerTagCount),
+                                    deepRatio   = (count / strangerTagCount) / (scope.userTags[tag] / scope.userTagCount);
+                                //The closer the tag fits amongst the others, deeper the match is
+                                deepMatch += tagRatio *= deepRatio < 1 ? deepRatio : 1 / deepRatio;
+                            }
+                        });
+
+                        strangersMatches[id] = softMatch * 0.5 + deepMatch * 0.5;
+                    });
+
+                    $log.info('User matches: ' + strangersMatches);
                 }
             }
         }

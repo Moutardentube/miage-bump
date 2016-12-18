@@ -41,9 +41,15 @@ angular.module('eklabs.angularStarterPack.bump')
         /**
          * Filter bumps from a specifc user's friends
          * @param {Array.<string>} usersIds
+         * @param {boolean=} exclude
          * @returns {Array.<Bump>}
          */
-        Bumps.prototype.filterByUsers = function (usersIds) {
+        Bumps.prototype.filterByUsers = function (usersIds, exclude) {
+            if (exclude === true) {
+                return this.items.filter(function (bump) {
+                    return usersIds.indexOf(bump.userId) === -1;
+                });
+            }
             return this.items.filter(function (bump) {
                 return usersIds.indexOf(bump.userId) !== -1;
             });

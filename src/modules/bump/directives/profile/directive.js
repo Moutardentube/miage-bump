@@ -97,10 +97,15 @@ angular.module('eklabs.angularStarterPack.bump')
 
                 this.getMatchingProfiles = function () {
                     if (this.userTagCount === 0) {
-                        return;
+                        if (this.bumps.filterByUser($scope.myUser.id).length === 0) {
+                            $log.info('[Profile Controller] User has no bumps yet');
+
+                            return;
+                        }
+                        this.getBumps();
                     }
-                    var userMatches     = {},
-                        excludedUsers   = $scope.myUser.friends.concat([$scope.myUser.id]),
+                    $scope.userMatches  = {};
+                    var excludedUsers   = $scope.myUser.friends.concat([$scope.myUser.id]),
                         strangersBumps  = this.bumps.filterByUsers(excludedUsers, true);
                     //Flatten and merge tags for each user
                     var strangersTags = strangersBumps.reduce(function (acc, curr) {
@@ -136,10 +141,10 @@ angular.module('eklabs.angularStarterPack.bump')
                             }
                         }.bind(this));
                         //Each stranger match is 50% soft 50% deep
-                        userMatches[strangerId] = softMatch * 0.5 + deepMatch * 0.5;
+                        $scope.userMatches[strangerId] = softMatch * 0.5 + deepMatch * 0.5;
                     }.bind(this));
 
-                    $log.info('[Profile Controller] User matches: ', userMatches);
+                    $log.info('[Profile Controller] User matches: ', $scope.userMatches);
                 }
             }
         }

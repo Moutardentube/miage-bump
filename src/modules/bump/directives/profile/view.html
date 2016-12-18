@@ -1,53 +1,25 @@
-<md-toolbar class="md-hue-2">
-    <div class="md-toolbar-tools">
-        <img src="http://www.bus-stac.fr/var/site/storage/images/4/0/2/2/2204-1-eng-GB/B.png" width="40" alt="bump"/>
+<md-content layout="column" layout-fill>
+    <!--<md-toolbar class="md-hue-2">
+        <div class="md-toolbar-tools">
+            <img src="http://www.bus-stac.fr/var/site/storage/images/4/0/2/2/2204-1-eng-GB/B.png" width="40"
+                 alt="bump"/>
 
-        <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
-            <!--<md-icon md-svg-icon="img/icons/menu.svg"></md-icon>-->
-        </md-button>
+            <md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
+                <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+            </md-button>
 
-        <h2>
-            <span>Bump Viewer</span>
-        </h2>
-    </div>
-</md-toolbar>
+            <h2>
+                <span>Bump Viewer</span>
+            </h2>
+        </div>
+    </md-toolbar>-->
+    <md-nav-bar md-selected-nav-item="selectedNav" nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-sref="bumpProfile.tops" name="tops">My tops</md-nav-item>
+        <md-nav-item md-nav-sref="bumpProfile.trends" name="trends">My network trends</md-nav-item>
+        <md-nav-item md-nav-sref="bumpProfile.matches" name="matches">Find matches</md-nav-item>
+    </md-nav-bar>
 
-<md-content layout-fill layout="row">
-    <md-list style="height: 90%; overflow: auto" flex="30">
-        <md-list-item class="md-2-line" ng-click="getRelatedTags(item)" ng-repeat="item in tagList"
-                      style="background-color: lightgrey;">
-            <!-- <img ng-if="" ng-src="" class="md-avatar" alt="{{person.name}}" /> -->
-
-            <div class="md-list-item-text">
-                <h3>{{ item }}</h3>
-            </div>
-
-            <h6 style="color : grey;font-style : italic;margin-right : 5px;"> {{item.bumpCount}} </h6>
-        </md-list-item>
-
-    </md-list>
-
-    <div style="background-color: white;" flex="70">
-        <md-list style="height: 90%; overflow: auto;" flex="30">
-
-            <md-list-item class="md-2-line" ng-click="getRelatedTags(item.tag)" ng-if="selectedTag !== null"
-                          ng-repeat="(tag, count) in relatedTags">
-                <!-- <img ng-if="" ng-src="" class="md-avatar" alt="{{person.name}}" /> -->
-
-                <div class="md-list-item-text">
-                    {{ tag }}
-                </div>
-
-                <div class="md-list-item-status" style="font-weight : bold; font-style : italic; margin-right : 5px;"
-                     layout="column">
-                    {{ count }}
-                </div>
-
-                <div class="md-list-item-status" layout="column">
-                    <img src="http://www.bus-stac.fr/var/site/storage/images/4/0/2/2/2204-1-eng-GB/B.png" width="20"
-                         alt="bumps"/>
-                </div>
-            </md-list-item>
-        </md-list>
-    </div>
+    <md-content>
+        <ui-view></ui-view>
+    </md-content>
 </md-content>

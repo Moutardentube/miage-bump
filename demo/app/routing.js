@@ -38,7 +38,7 @@ angular.module('demoApp')
         // DEMO BUMP Component
         // ------------------------------------------------------------------------------------------------
         .state('bumpButton', {
-            url: '/bump',
+            url: '/bump-button',
             controller: 'demoBumpCtrl',
             templateUrl: "pages/demoBumpButton/demoBumpView.html"
         })
@@ -47,6 +47,21 @@ angular.module('demoApp')
             url : '/bump-profile',
             controller : 'demoBumpProfileCtrl',
             templateUrl : "pages/demoBumpProfile/demoBumpProfileView.html"
+        })
+
+        .state('bumpProfile.tops', {
+            url: '/tops',
+            template: '<bump-tops user="myUser" user-tags="userTags"></bump-tops>'
+        })
+
+        .state('bumpProfile.trends', {
+            url: '/trends',
+            template: '<bump-trends user="myUser" trending-tags="trendingTags"></bump-trends>'
+        })
+
+        .state('bumpProfile.matches', {
+            url: '/matches',
+            template: '<bump-matches user="myUser" user-matches="userMatches"></bump-matches>'
         })
 
 

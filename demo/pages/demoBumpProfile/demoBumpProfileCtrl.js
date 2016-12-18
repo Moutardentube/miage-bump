@@ -35,7 +35,7 @@ angular.module('demoApp')
             }).map(function (user) {
                 return {
                     case:   user.name,
-                    user:   user.id
+                    user:   user
                 }
             });
             $scope.params = $scope.params.concat(users);

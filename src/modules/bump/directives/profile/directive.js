@@ -83,8 +83,12 @@ angular.module('eklabs.angularStarterPack.bump', ['ngMaterial'])
                 }
 
                 function getMatchingProfiles() {
+                    if (scope.userTagCount === 0) {
+                        return;
+                    }
                     var strangersMatches    = {},
-                        strangersBumps      = scope.bumps.filterByUsers(scope.user.friends, true);
+                        excludedUsers       = scope.user.friends.concat([scope.user.id]),
+                        strangersBumps      = scope.bumps.filterByUsers(excludedUsers, true);
                     //Flatten and merge tags for each user
                     var strangersTags = strangersBumps.reduce(function (acc, curr) {
                         acc[curr.userId] = (acc[curr.userId] || []).concat(curr.tags);
@@ -92,14 +96,16 @@ angular.module('eklabs.angularStarterPack.bump', ['ngMaterial'])
                         return acc;
                     }, {});
                     //Compute match for each stranger
-                    angular.forEach(Object.keys(strangersTags), function (id) {
+                    angular.forEach(Object.keys(strangersTags), function (strangerId) {
                         var softMatch           = 0,
                             deepMatch           = 0,
-                            strangerTagCount    = 0;
+                            strangerTagCount    = 0,
+                            tagRatio,
+                            deepRatio;
                         //Indexed count for each tag
-                        var tagsCounts = strangersTags[id].reduce(function (acc, curr) {
+                        var tagsCounts = strangersTags[strangerId].reduce(function (acc, curr) {
                             acc[curr] = (acc[curr] || 0) + 1;
-                            //Increment tag count for user
+                            //Increment tag count for stranger
                             strangerTagCount++;
 
                             return acc;
@@ -108,19 +114,19 @@ angular.module('eklabs.angularStarterPack.bump', ['ngMaterial'])
                         angular.forEach(tagsCounts, function (count, tag) {
                             if (tag in scope.userTags) {
                                 //A shared tag increases the match
-                                softMatch += 1 / Object.keys(tagsCounts).length;
+                                softMatch  += 1 / Object.keys(tagsCounts).length;
 
-                                var tagRatio    = (count / strangerTagCount),
-                                    deepRatio   = (count / strangerTagCount) / (scope.userTags[tag] / scope.userTagCount);
+                                tagRatio    = (count / strangerTagCount);
+                                deepRatio   = (count / strangerTagCount) / (scope.userTags[tag] / scope.userTagCount);
                                 //The closer the tag fits amongst the others, deeper the match is
-                                deepMatch += tagRatio *= deepRatio < 1 ? deepRatio : 1 / deepRatio;
+                                deepMatch  += tagRatio *= deepRatio < 1 ? deepRatio : 1 / deepRatio;
                             }
                         });
-
-                        strangersMatches[id] = softMatch * 0.5 + deepMatch * 0.5;
+                        //Each stranger match is 50% soft 50% deep
+                        strangersMatches[strangerId] = softMatch * 0.5 + deepMatch * 0.5;
                     });
 
-                    $log.info('User matches: ' + strangersMatches);
+                    $log.info('User matches: ', strangersMatches);
                 }
             }
         }

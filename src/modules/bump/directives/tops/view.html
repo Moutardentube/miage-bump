@@ -1,0 +1,42 @@
+<style>
+</style>
+
+<md-content layout="row">
+    <md-list flex="33">
+        <md-list-item class="md-2-line" ng-click="getRelatedTags(item)" ng-repeat="(item, count) in myTags"
+                      style="background-color: lightgrey;">
+            <!--<img ng-if="" ng-src="" class="md-avatar" alt="{{person.name}}" />-->
+
+            <div class="md-list-item-text">
+                <h3>{{ item }}</h3>
+            </div>
+
+            <h6 style="color : grey;font-style : italic;margin-right : 5px;"> {{ item.bumpCount }} </h6>
+
+            <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+    </md-list>
+
+    <md-list flex="33">
+        <md-list-item class="md-2-line" ng-click="" ng-if="selectedTag !== null"
+                      ng-repeat="(tag, count) in relatedTags">
+            <!--<img ng-if="" ng-src="" class="md-avatar" alt="{{person.name}}" />-->
+
+            <div class="md-list-item-text">
+                {{ tag }}
+            </div>
+
+            <div class="md-list-item-status" style="font-weight : bold; font-style : italic; margin-right : 5px;"
+                 layout="column">
+                {{ count }}
+            </div>
+
+            <div class="md-list-item-status" layout="column">
+                <img src="http://www.bus-stac.fr/var/site/storage/images/4/0/2/2/2204-1-eng-GB/B.png" width="20"
+                     alt="bumps"/>
+            </div>
+
+            <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+    </md-list>
+</md-content>

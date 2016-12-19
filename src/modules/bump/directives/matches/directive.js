@@ -23,7 +23,7 @@ angular.module('eklabs.angularStarterPack.bump')
 
                         return;
                     }
-                    //Update tags
+                    //Update matches
                     scope.myMatches = userMatches;
                     //If user is the same, whether it be another digest cycle or a programmatic gimmick
                     if (user === scope.myUser) {

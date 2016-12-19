@@ -1,6 +1,220 @@
 angular.module('eklabs.angularStarterPack').run(['$templateCache', function($templateCache) {
   'use strict';
 
+  $templateCache.put('eklabs.angularStarterPack/modules/bump/directives/button/view.html',
+    "<md-button ng-click=\"actions.onBump(myUser, myUrl, $event)\">\n" +
+    "    <md-icon md-svg-src=\"material-design:thumb_up\"></md-icon>\n" +
+    "\n" +
+    "    Bump!\n" +
+    "</md-button>"
+  );
+
+
+  $templateCache.put('eklabs.angularStarterPack/modules/bump/directives/dialog/view.html',
+    "<md-dialog aria-label=\"Bump?\">\n" +
+    "    <md-dialog-content>\n" +
+    "        <md-list layout=\"column\" layout-padding>\n" +
+    "            <md-list-item layout=\"row\" layout-align=\"space-between center\">\n" +
+    "                <md-input-container>\n" +
+    "                    <input placeholder=\"Renseignez un tag\"\n" +
+    "                           ng-model=\"tags[0]\"/>\n" +
+    "                </md-input-container>\n" +
+    "                <md-button ng-click=\"addTag(tags[0])\">\n" +
+    "                    <md-icon md-svg-src=\"material-design:add\"></md-icon>\n" +
+    "                </md-button>\n" +
+    "            </md-list-item>\n" +
+    "            <md-list-item layout=\"row\" layout-align=\"space-between center\"\n" +
+    "                          ng-repeat=\"tag in tags\" ng-if=\"$index > 0\">\n" +
+    "                <md-input-container>\n" +
+    "                    <input ng-model=\"tag\"/>\n" +
+    "                </md-input-container>\n" +
+    "                <md-button ng-click=\"deleteTag($index)\">\n" +
+    "                    <md-icon md-svg-src=\"material-design:delete\"></md-icon>\n" +
+    "                </md-button>\n" +
+    "            </md-list-item>\n" +
+    "        </md-list>\n" +
+    "    </md-dialog-content>\n" +
+    "    <md-dialog-actions>\n" +
+    "        <md-button ng-click=\"closeDialog()\">Cancel</md-button>\n" +
+    "        <md-button ng-click=\"confirmBump()\">Bump!</md-button>\n" +
+    "    </md-dialog-actions>\n" +
+    "</md-dialog>"
+  );
+
+
+  $templateCache.put('eklabs.angularStarterPack/modules/bump/directives/frame/view.html',
+    "<style>\n" +
+    "    /*Remove whitespace underneath md inputs*/\n" +
+    "    .md-errors-spacer:empty {\n" +
+    "        display: none;\n" +
+    "    }\n" +
+    "</style>\n" +
+    "\n" +
+    "<div layout=\"column\" layout-align=\"space-between stretch\" layout-fill>\n" +
+    "    <iframe flex=\"80\"\n" +
+    "            ng-src=\"{{ myUrl | trusted }}\" ng-onload=\"actions.onLoad(myUrl)\"></iframe>\n" +
+    "\n" +
+    "    <div layout=\"row\" layout-align=\"start center\">\n" +
+    "        <md-input-container>\n" +
+    "            <label>User</label>\n" +
+    "\n" +
+    "            <input ng-model=\"myUser.name\" ng-keypress=\"setUser($event)\" />\n" +
+    "        </md-input-container>\n" +
+    "\n" +
+    "        <md-input-container>\n" +
+    "            <label>Website</label>\n" +
+    "\n" +
+    "            <input id=\"input-url\"\n" +
+    "                   ng-keypress=\"setUrl($event)\" />\n" +
+    "\n" +
+    "            <div layout=\"row\" layout-align=\"end center\">\n" +
+    "                <md-progress-circular md-mode=\"indeterminate\" md-diameter=\"26\"\n" +
+    "                                      ng-if=\"isLoading\"></md-progress-circular>\n" +
+    "            </div>\n" +
+    "        </md-input-container>\n" +
+    "\n" +
+    "        <bump-button flex-offset=\"5\"\n" +
+    "                          user=\"myUser\" url=\"myUrl\"></bump-button>\n" +
+    "    </div>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('eklabs.angularStarterPack/modules/bump/directives/matches/view.html',
+    "<style>\n" +
+    "    .card img {\n" +
+    "        width: 100%;\n" +
+    "        height: auto;\n" +
+    "    }\n" +
+    "</style>\n" +
+    "\n" +
+    "<md-content>\n" +
+    "    <md-grid-list md-cols=\"4\"\n" +
+    "                  md-row-height=\"4:4\"\n" +
+    "                  md-gutter=\"8px\"\n" +
+    "                  md-gutter-gt-sm=\"4px\">\n" +
+    "        <md-grid-tile ng-repeat=\"match in myMatches\"\n" +
+    "                      md-rowspan=\"1\"\n" +
+    "                      md-colspan=\"1\"\n" +
+    "                      md-colspan-sm=\"1\"\n" +
+    "                      md-colspan-xs=\"1\"\n" +
+    "                      ng-class=\"darkBlue\">\n" +
+    "            <img ng-src=\"{{ match.photo }}\" layout-fill />\n" +
+    "\n" +
+    "            <md-grid-tile-header><h3>{{ match.name }}</h3></md-grid-tile-header>\n" +
+    "\n" +
+    "            <md-grid-tile-footer><h3>{{ match.match.toFixed(2) * 100 }}%</h3></md-grid-tile-footer>\n" +
+    "        </md-grid-tile>\n" +
+    "    </md-grid-list>\n" +
+    "</md-content>"
+  );
+
+
+  $templateCache.put('eklabs.angularStarterPack/modules/bump/directives/profile/view.html',
+    "<md-content layout=\"column\" layout-fill>\n" +
+    "    <md-nav-bar md-selected-nav-item=\"selectedNav\" nav-bar-aria-label=\"navigation links\">\n" +
+    "        <md-nav-item md-nav-sref=\"bumpProfile.tops\" name=\"tops\">My tops</md-nav-item>\n" +
+    "        <md-nav-item md-nav-sref=\"bumpProfile.trends\" name=\"trends\">My network trends</md-nav-item>\n" +
+    "        <md-nav-item md-nav-sref=\"bumpProfile.matches\" name=\"matches\">Find matches</md-nav-item>\n" +
+    "    </md-nav-bar>\n" +
+    "\n" +
+    "    <md-content>\n" +
+    "        <ui-view></ui-view>\n" +
+    "    </md-content>\n" +
+    "</md-content>"
+  );
+
+
+  $templateCache.put('eklabs.angularStarterPack/modules/bump/directives/tops/view.html',
+    "<style>\n" +
+    "</style>\n" +
+    "\n" +
+    "<md-content layout=\"row\">\n" +
+    "    <md-list flex=\"33\">\n" +
+    "        <md-list-item class=\"md-2-line\" ng-click=\"getRelatedTags(item)\" ng-repeat=\"(item, count) in myTags\"\n" +
+    "                      style=\"background-color: lightgrey;\">\n" +
+    "            <!--<img ng-if=\"\" ng-src=\"\" class=\"md-avatar\" alt=\"{{person.name}}\" />-->\n" +
+    "\n" +
+    "            <div class=\"md-list-item-text\">\n" +
+    "                <h3>{{ item }}</h3>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <h6 style=\"color : grey;font-style : italic;margin-right : 5px;\"> {{ item.bumpCount }} </h6>\n" +
+    "\n" +
+    "            <md-divider ng-if=\"!$last\"></md-divider>\n" +
+    "        </md-list-item>\n" +
+    "    </md-list>\n" +
+    "\n" +
+    "    <md-list flex=\"33\">\n" +
+    "        <md-list-item class=\"md-2-line\" ng-click=\"\" ng-if=\"selectedTag !== null\"\n" +
+    "                      ng-repeat=\"(tag, count) in relatedTags\">\n" +
+    "            <!--<img ng-if=\"\" ng-src=\"\" class=\"md-avatar\" alt=\"{{person.name}}\" />-->\n" +
+    "\n" +
+    "            <div class=\"md-list-item-text\">\n" +
+    "                {{ tag }}\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <div class=\"md-list-item-status\" style=\"font-weight : bold; font-style : italic; margin-right : 5px;\"\n" +
+    "                 layout=\"column\">\n" +
+    "                {{ count }}\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <div class=\"md-list-item-status\" layout=\"column\">\n" +
+    "                <img src=\"http://www.bus-stac.fr/var/site/storage/images/4/0/2/2/2204-1-eng-GB/B.png\" width=\"20\"\n" +
+    "                     alt=\"bumps\"/>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <md-divider ng-if=\"!$last\"></md-divider>\n" +
+    "        </md-list-item>\n" +
+    "    </md-list>\n" +
+    "</md-content>"
+  );
+
+
+  $templateCache.put('eklabs.angularStarterPack/modules/bump/directives/trends/view.html',
+    "<style>\n" +
+    "    .md-button {\n" +
+    "        text-align: left;\n" +
+    "    }\n" +
+    "</style>\n" +
+    "\n" +
+    "<md-content layout=\"column\">\n" +
+    "        <md-button ng-repeat=\"(tag, count) in myTrends\"\n" +
+    "             flex=\"{{ count / maxCount * 100 }}\" class=\"md-raised md-primary\">{{ tag }}</md-button>\n" +
+    "</md-content>"
+  );
+
+
+  $templateCache.put('eklabs.angularStarterPack/modules/form-editor/directives/editor/view.html',
+    "<form name=\"form\" ng-submit=\"actions.onValidate(user)\">\n" +
+    "\n" +
+    "    <div layout=\"column\">\n" +
+    "\n" +
+    "        <md-input-container>\n" +
+    "\n" +
+    "            <label>Last name</label>\n" +
+    "\n" +
+    "            <input name=\"name\" ng-model=\"user.lastName\" />\n" +
+    "        </md-input-container>\n" +
+    "\n" +
+    "        <md-input-container>\n" +
+    "\n" +
+    "            <label>First name</label>\n" +
+    "\n" +
+    "            <input name=\"first-name\" ng-model=\"user.firstName\" />\n" +
+    "        </md-input-container>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <md-button type=\"submit\">\n" +
+    "\n" +
+    "        <md-icon md-svg-src=\"material-design:done\"></md-icon>\n" +
+    "\n" +
+    "        Valider\n" +
+    "    </md-button>\n" +
+    "</form>"
+  );
+
+
   $templateCache.put('eklabs.angularStarterPack/modules/forms/directives/my-form/myFormView.html',
     "<form name=\"myForm\" ng-submit=\"actions.onValid(myUser)\">\n" +
     "\n" +

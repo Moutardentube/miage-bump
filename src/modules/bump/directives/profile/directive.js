@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('eklabs.angularStarterPack.bump')
-    .directive('bumpProfile', function ($log, Bumps) {
+    .directive('bumpProfile', function ($log, Bumps, User, Users, $q) {
         return {
             templateUrl: 'eklabs.angularStarterPack/modules/bump/directives/profile/view.html',
             scope: {
@@ -11,6 +11,7 @@ angular.module('eklabs.angularStarterPack.bump')
                 const PARENT_STATE = 'bumpProfile';
                 //Some variables are controller properties since children directives need to access them
                 this.bumps          = new Bumps();
+                this.users          = new Users();
                 this.userBumps      = [];
                 this.relatedTags    = [];
                 this.userTagCount   = 0;
@@ -18,7 +19,7 @@ angular.module('eklabs.angularStarterPack.bump')
                 $scope.selectedNav  = 'tops';
                 $scope.isLoading    = true;
 
-                this.bumps.fetch().then(function () {
+                $q.all(this.bumps.fetch(), this.users.fetch()).then(function () {
                     $state.go(PARENT_STATE + '.' + $scope.selectedNav);
                     $scope.isLoading = false;
                 });
@@ -97,13 +98,19 @@ angular.module('eklabs.angularStarterPack.bump')
 
                 this.getMatchingProfiles = function () {
                     if (this.userTagCount === 0) {
-                        return;
+                        if (this.bumps.filterByUser($scope.myUser.id).length === 0) {
+                            $log.info('[Profile Controller] User has no bumps yet');
+
+                            return;
+                        }
+                        this.getBumps();
                     }
                     var userMatches     = {},
+                        userPromises    = [],
                         excludedUsers   = $scope.myUser.friends.concat([$scope.myUser.id]),
                         strangersBumps  = this.bumps.filterByUsers(excludedUsers, true);
                     //Flatten and merge tags for each user
-                    var strangersTags = strangersBumps.reduce(function (acc, curr) {
+                    var strangersTags   = strangersBumps.reduce(function (acc, curr) {
                         acc[curr.userId] = (acc[curr.userId] || []).concat(curr.tags);
 
                         return acc;
@@ -137,10 +144,28 @@ angular.module('eklabs.angularStarterPack.bump')
                         }.bind(this));
                         //Each stranger match is 50% soft 50% deep
                         userMatches[strangerId] = softMatch * 0.5 + deepMatch * 0.5;
+                        //Request info for stranger
+                        //userPromises.push(new User().get(strangerId));
                     }.bind(this));
+                    //Populate matches from requests and update scope
+                    $q.all(userPromises).then(function (results) {
+                        $scope.userMatches = Object.keys(userMatches).map(function (strangerId) {
+                            //Get User resource and add its match level
+                            return angular.merge({
+                                match: userMatches[strangerId]
+                            }, this.findUser(strangerId));
+                        }.bind(this));
 
-                    $log.info('[Profile Controller] User matches: ', userMatches);
-                }
+                        $log.info('[Profile Controller] User matches: ', $scope.userMatches);
+                    }.bind(this));
+                };
+
+                //Find User within the whole collection instead of firing a new request for each matching user
+                this.findUser = function (userId) {
+                    return this.users.items.find(function (user) {
+                        return user.id === userId;
+                    });
+                };
             }
         }
     });

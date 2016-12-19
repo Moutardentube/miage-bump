@@ -3,5 +3,6 @@
 angular.module('eklabs.angularStarterPack.bump', [
     'ui.ace',
     'ngMaterial',
-    'angular-toArrayFilter'
+    'angular-toArrayFilter',
+    'eklabs.angularStarterPack.user'
 ]);

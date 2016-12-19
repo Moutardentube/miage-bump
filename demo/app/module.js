@@ -5,5 +5,6 @@ angular.module('demoApp', [
     'ngMaterial',
     'ui.router',
     'jsonFormatter',
-    'hljs'
+    'hljs',
+    'ngOnload'
 ]);

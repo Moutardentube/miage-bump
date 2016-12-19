@@ -1,6 +1,7 @@
 'use strict';
+
 angular.module('demoApp')
-    .controller('demoEditorCtrl', function($scope){
+    .controller('demoBumpCtrl', function ($scope){
 
 
         // ----------------------------------------------------------------------------------------------------
@@ -11,57 +12,52 @@ angular.module('demoApp')
             /**
              * Default
              */
-            case       : 'Default Case',
-            options    : undefined,
-            json       : undefined,
-            callback   : undefined,
-            listeners  : undefined
-        },{
+            case        : 'Default Case',
+            user        : undefined,
+            url         : '',
+            callback    : undefined,
+            options     : undefined
+        }, {
             /**
-             * Case JSON
+             * Case User
              */
-            case       : 'Case inject Json',
-            options    : undefined,
-            json       : {"hello" : "world"},
-            callback   : undefined,
-            listeners  : undefined
+            case        : 'Case User',
+            user        : {
+                id      : '',
+                name    : 'Ludo Babadjo'
+            },
+            url         : 'https://www.dealabs.com/bons-plans/magnum-de-15l-de-chouffe/296071',
+            callback    : undefined,
+            options     : undefined
 
-        },{
+        }, {
             /**
              * Callback active
              */
-            case       : 'Case Callback and Function',
-            options    : undefined,
-            json       : undefined,
-            callback   : {
-                valid : function(json){
-                    displayCode('Callback : valid',json);
+            case        : 'Case Callback and Function',
+            callback    : {
+                valid : function (json) {
+                    displayCode('Callback', json);
                 }
             },
-            listeners  : {
-                onError : function(errors){
-                    displayCode('Listeners : onError',errors,true);
-                }
-            }
+            options     : undefined
         }];
 
         $scope.chooseParams = function(index){
             // --- Define current status
-            $scope.myOptions    = $scope.params[index].options;
-            $scope.myJson       = $scope.params[index].json;
+            $scope.myUser       = $scope.params[index].user;
             $scope.myCallback   = $scope.params[index].callback;
-            $scope.myListener   = $scope.params[index].listeners;
+            $scope.myUrl        = $scope.params[index].url;
 
-            $scope.index          = index;
-            $scope.refresh        = moment().valueOf();
-            $scope.haveResult     = false;
+            $scope.index        = index;
+            $scope.haveResult   = false;
         };
 
         // --- Init
         $scope.chooseParams(0);
 
         // --- Update result viewer
-        var displayCode = function(from,code,isError){
+        var displayCode = function (from, code, isError){
 
             $scope.haveResult   = true;
 
@@ -77,7 +73,7 @@ angular.module('demoApp')
         $scope.displayCode  = false;
         $scope.maxHeight    = $(window).height() - 250;
 
-        $scope.showCode = function(){
+        $scope.showCode = function () {
             $scope.displayCode = !$scope.displayCode;
         };
 
@@ -86,25 +82,25 @@ angular.module('demoApp')
          * @type {{title: string, icon: string, haveCodeSource: boolean}}
          */
         $scope.page         = {
-            title : 'directive json-editor',
+            title : 'directive bump',
             haveCodeSource : true,
             code : [{
-                link : 'pages/demoEditor/code/directive.html',
+                link : 'pages/demoBumpButton/code/directive-button.html',
                 language : 'html',
-                title : 'Code HTML de la directive demo-json-editor'
-            },{
-                link : 'pages/demoEditor/code/contract.json',
+                title : 'Code HTML de la directive demo-bump'
+            }, {
+                link : 'pages/demoBumpButton/code/contract.json',
                 language : 'json',
-                title : 'Params available for the directive demo-json-editor'
+                title : 'Params available for the directive demo-bump'
             }]
         };
 
         /**
          * MODE Fullscreen
          */
-        $scope.fullScreenMode = true;
-        $scope.hideParams     = false;
-        $scope.fullScreen = function(){
+        $scope.fullScreenMode   = true;
+        $scope.hideParams       = false;
+        $scope.fullScreen       = function () {
             $scope.hideParams = !$scope.hideParams;
         };
 

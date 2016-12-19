@@ -1,0 +1,7 @@
+{
+  "user"      : "Resource User",
+  "url"       : "string",
+  "callback"  : {
+    "onBump"  : "function (user, url) {}"
+  }
+}

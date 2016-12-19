@@ -15,5 +15,17 @@
     "description" : "Full user process",
     "icon"        : "people",
     "state"       : "myForm2"
+  },
+  {
+    "name"        : "Bump Button",
+    "description" : "Example of demo interface with a Bump Button UI-ACE",
+    "icon"        : "thumb_up",
+    "state"       : "bumpButton"
+  },
+  {
+    "name"        : "Bump Profile",
+    "description" : "Example of demo interface with a Bump Profile UI-ACE",
+    "icon"        : "thumb_up",
+    "state"       : "bumpProfile"
   }
 ]

@@ -1,0 +1,34 @@
+<style>
+    /*Remove whitespace underneath md inputs*/
+    .md-errors-spacer:empty {
+        display: none;
+    }
+</style>
+
+<div layout="column" layout-align="space-between stretch" layout-fill>
+    <iframe flex="80"
+            ng-src="{{ myUrl | trusted }}" ng-onload="actions.onLoad(myUrl)"></iframe>
+
+    <div layout="row" layout-align="start center">
+        <md-input-container>
+            <label>User</label>
+
+            <input ng-model="myUser.name" ng-keypress="setUser($event)" />
+        </md-input-container>
+
+        <md-input-container>
+            <label>Website</label>
+
+            <input id="input-url"
+                   ng-keypress="setUrl($event)" />
+
+            <div layout="row" layout-align="end center">
+                <md-progress-circular md-mode="indeterminate" md-diameter="26"
+                                      ng-if="isLoading"></md-progress-circular>
+            </div>
+        </md-input-container>
+
+        <bump-button flex-offset="5"
+                          user="myUser" url="myUrl"></bump-button>
+    </div>
+</div>

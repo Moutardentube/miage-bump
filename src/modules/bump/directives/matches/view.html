@@ -1,0 +1,26 @@
+<style>
+    .card img {
+        width: 100%;
+        height: auto;
+    }
+</style>
+
+<md-content>
+    <md-grid-list md-cols="4"
+                  md-row-height="4:4"
+                  md-gutter="8px"
+                  md-gutter-gt-sm="4px">
+        <md-grid-tile ng-repeat="match in myMatches"
+                      md-rowspan="1"
+                      md-colspan="1"
+                      md-colspan-sm="1"
+                      md-colspan-xs="1"
+                      ng-class="darkBlue">
+            <img ng-src="{{ match.photo }}" layout-fill />
+
+            <md-grid-tile-header><h3>{{ match.name }}</h3></md-grid-tile-header>
+
+            <md-grid-tile-footer><h3>{{ match.match.toFixed(2) * 100 }}%</h3></md-grid-tile-footer>
+        </md-grid-tile>
+    </md-grid-list>
+</md-content>

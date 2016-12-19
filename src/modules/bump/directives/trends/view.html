@@ -1,1 +1,10 @@
-<md-content></md-content>
+<style>
+    .md-button {
+        text-align: left;
+    }
+</style>
+
+<md-content layout="column">
+        <md-button ng-repeat="(tag, count) in myTrends"
+             flex="{{ count / maxCount * 100 }}" class="md-raised md-primary">{{ tag }}</md-button>
+</md-content>

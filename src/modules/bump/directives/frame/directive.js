@@ -17,6 +17,8 @@ angular.module('eklabs.angularStarterPack.bump')
             scope       : {
                 user        : '=?',
                 url         : '=',
+                container   : '=?',
+                tags        : '=?',
                 callback    : '=?'
             },
             link: function (scope, element) {
@@ -31,7 +33,6 @@ angular.module('eklabs.angularStarterPack.bump')
                 scope.$watch('user', function (user) {
                     scope.myUser = user;
                 });
-
                 scope.$watch('url', function (url) {
                     scope.myUrl = typeof url === 'string' && url.length > 0 ? url : 'about:blank';
                     scope.isLoading = true;
@@ -39,6 +40,12 @@ angular.module('eklabs.angularStarterPack.bump')
                     urlInput.prop('value', url);
                     urlInput.triggerHandler('focus');
                     urlInput.triggerHandler('blur');
+                });
+                scope.$watch('container', function (container) {
+                    scope.myContainer = container;
+                });
+                scope.$watch('tags', function (tags) {
+                    scope.myTags = tags;
                 });
 
                 scope.setUser = function (e) {

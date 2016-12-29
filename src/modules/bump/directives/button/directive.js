@@ -1,28 +1,58 @@
 'use strict';
 
 angular.module('eklabs.angularStarterPack.bump')
-    .directive('bumpButton', ['$log', '$mdDialog', function ($log, $mdDialog) {
+    .directive('bumpButton', ['$log', '$mdDialog', '$http', '$q', 'Bump', function ($log, $mdDialog, $http, $q, Bump) {
         return {
             templateUrl : 'eklabs.angularStarterPack/modules/bump/directives/button/view.html',
             scope       : {
                 user        : '=',
                 url         : '=?',
+                container   : '=?',
                 tags        : '=?',
                 callback    : '=?'
             },
             link: function (scope) {
+                const CONTENT_WEIGHTS   = {
+                    description : 5,
+                    hN          : 7,
+                    hNminus1    : 5,
+                    hNminus2    : 3,
+                    keywords    : 1,
+                    name        : 1,
+                    site        : 1,
+                    title       : 9,
+                    url         : 1
+                },
+                    CONTENT_WEIGHT_MIN  = 15;
+
                 scope.$watch('user', function (user) {
                     scope.myUser = user;
                 });
                 scope.$watch('url', function (url) {
                     scope.myUrl = url;
                 });
+                scope.$watch('container', function (container) {
+                    scope.myContainer = container;
+                });
+                scope.$watch('tags', function (tags) {
+                    scope.myTags = tags;
+                });
 
                 var defaultActions = {
-                    onBump: function (user, url, e) {
-                        //TODO: generate tags from url contents and add them to user
-                        scope.tags = ['Tag 1', 'Tag 2', 'Tag 3'];
-                        scope.showDialog(e);
+                    onBump: function (user, url, container, tags, e) {
+                        var foundTags;
+
+                        if (tags !== undefined) {
+                            foundTags = tags;
+                        } else if (container !== undefined) {
+                            foundTags = computeTagsFromDOM(container);
+                        } else if (url !== undefined) {
+                            foundTags = computeTagsFromURL(url);
+                        } else {
+                            foundTags = [];
+                        }
+
+                        scope.showDialog(foundTags, url);
                     }
                 };
 
@@ -34,7 +64,7 @@ angular.module('eklabs.angularStarterPack.bump')
                     }
                 });
 
-                scope.showDialog = function() {
+                scope.showDialog = function(tags, url) {
                     $mdDialog.show({
                         template:
                         '<md-dialog aria-label="Bump?">' +
@@ -66,8 +96,8 @@ angular.module('eklabs.angularStarterPack.bump')
                         '   </md-dialog-actions>' +
                         '</md-dialog>',
                         locals: {
-                            tags: scope.tags,
-                            url : scope.myUrl
+                            tags: tags,
+                            url : url
                         },
                         controller: DialogController
                     });
@@ -79,216 +109,20 @@ angular.module('eklabs.angularStarterPack.bump')
                             $mdDialog.hide();
                         };
                         $scope.confirmBump = function() {
-                            //TODO: save tags and url for user
+                            var bump = new Bump({
+                                idUser  : scope.user.id,
+                                url     : url,
+                                tag     : tags.slice(1, tags.length)
+                            });
+                            $log.info('[Button Directive] Inserting following bump in remote database: ', bump);
 
-                            /**
-                             * Created by Clément on 06/12/2016.
-                             */
-                            var siteName = "";
-                            var pageTitle = "";
-                            var pageKeywords = "";
-                            var pageDescription = "";
-                            var pageLanguage = "";
-                            var pageUrl = "";
-                            var pageImage = "";
-
-                            var pageH1Array = [];
-                            var pageH2Array = [];
-                            var pageH3Array = [];
-
-                            // Contains all h1 words to be later used as tags
-                            var pageH1CleanedArray = [];
-
-                            var descriptionArray = [];
-
-                            var pageTags = [];
-
-                            var pageParagraphs = "";
-
-                            var occurrencesArray = [];
-
-                            /*
-                             Regexp used to filter/search through and clean data
-                             */
-                            var regexpSiteName = new RegExp(/site|name/, 'ig');
-                            var regexpKeywords = new RegExp(/keyword/, 'ig');
-                            var regexpDescription = new RegExp(/description/, 'ig');
-                            var regexpLanguage = new RegExp(/language/, 'ig');
-                            var regexpUrl = new RegExp(/url/, 'ig');
-                            var regexpImage = new RegExp(/image/, 'ig');
-                            var regexCleaner = new RegExp(/ le | la | les | l'| l’| de | du | des | d'| d’| mais | ou | et | donc | or | ni | car | que | qu'| si | lorsque | comme | puisque | quand | dans | à | a | chez | en | dans | avant | devant | après | derrière | par | pour | avec | entre | jusque | jusqu' | contre | sur | sous | vers | sans | envers | près | auprès | autour |[.,\/#!$%\^&\*;:{}=\-_`~()«»"]/, 'ig');
-                            var regexWhitespace = new RegExp(/\s{2,}/, 'g');
-
-                            /*
-                             Get the content of the main metas tags (name, languauge, keywords, image,...
-                             */
-                            function getMetasContent() {
-                                var metas = document.getElementsByTagName('meta');
-
-                                for (var i=0 ; i<metas.length ; i++) {
-                                    if(metas[i].getAttribute("name")) {
-                                        if (siteName=="" && metas[i].getAttribute("name").search(regexpSiteName)!= -1) {
-                                            siteName = metas[i].getAttribute("content");
-                                        }
-                                        if (pageKeywords=="" && metas[i].getAttribute("name").search(regexpKeywords)!= -1 ) {
-                                            pageKeywords = metas[i].getAttribute("content");
-                                        }
-                                        if (pageDescription=="" && metas[i].getAttribute("name").search(regexpDescription)!= -1) {
-                                            pageDescription = " " + metas[i].getAttribute("content");
-                                            pageDescription = pageDescription.replace(regexCleaner," ");
-                                            pageDescription = pageDescription.replace(regexCleaner," ");
-                                            pageDescription = pageDescription.replace(regexWhitespace, " ");
-                                        }
-                                        if (pageLanguage=="" && metas[i].getAttribute("name").search(regexpLanguage)!= -1) {
-                                            pageLanguage = metas[i].getAttribute("content");
-                                        }
-                                        if (pageUrl.length<2 && metas[i].getAttribute("name").search(regexpUrl)!= -1) {
-                                            pageUrl = metas[i].getAttribute("content");
-                                        }
-                                        if (pageImage=="" && metas[i].getAttribute("name").search(regexpImage)!= -1) {
-                                            pageImage = metas[i].getAttribute("content");
-                                        }
-                                    }
-                                }
-                            }
-
-                            /*
-                             Get the pages 'basic' html elements like title or language.
-                             This function is used to complement the getMetasContent() function by trying to get datas that couldn't be found in the metas.
-                             */
-                            function getPageBasicHTMLElement() {
-                                pageTitle = document.getElementsByTagName("title")[0].innerHTML;
-                                if(pageLanguage=="") {
-                                    pageLanguage = document.documentElement.lang;
-                                }
-                            }
-
-                            /*
-                             Get the page 3 main titles (h1, h2, h3)
-                             */
-                            function getTitles() {
-                                var h1 = document.getElementsByTagName('h1');
-                                var h2 = document.getElementsByTagName('h2');
-                                var h3 = document.getElementsByTagName('h3');
-
-                                for (var i=0 ; i<h1.length ; i++) {
-                                    var h1Content = h1[i].textContent;
-                                    pageH1Array.push(h1Content);
-                                    pageH1CleanedArray.push(h1Content.replace(regexCleaner," ").replace(regexCleaner," ").replace(regexWhitespace, " "));
-                                }
-
-                                for (var i=0 ; i<h2.length ; i++) {
-                                    pageH2Array.push(h2[i].textContent);
-                                }
-
-                                for (var i=0 ; i<h3.length ; i++) {
-                                    pageH3Array.push(h3[i].textContent);
-                                }
-                            }
-
-                            /*
-                             Extract tags from the page description and the h1 titles captured in the page.
-                             */
-                            function extractTags() {
-                                descriptionArray = pageDescription.trim().split(" ");
-                                pageTags.push.apply(pageTags, descriptionArray);
-                                for(var i=0 ; i<pageH1CleanedArray.length ; i++) {
-                                    var currentH1Array = pageH1CleanedArray[i].trim().split(" ");
-                                    for(var j=0 ; j<currentH1Array.length ; j++) {
-                                        var currentH1 = currentH1Array[j];
-                                        if (currentH1 != " " && pageTags.indexOf(currentH1) == -1) {
-                                            // word/tag not in tags array = need to add it to tags list
-                                            pageTags.push(currentH1);
-                                        }
-                                    }
-                                }
-                            }
-
-                            /*
-                             Gather all page's paragraphs (<p></p>) into one string variabe.
-                             */
-                            function gatherParagraphs() {
-                                var paragraphs = document.getElementsByTagName('p');
-
-                                for (var i=0 ; i<paragraphs.length ; i++) {
-                                    // innerText for IE, textContent for other browsers
-                                    pageParagraphs += paragraphs[i].textContent || paragraphs[i].innerText;
-                                }
-                            }
-
-                            /*
-                             Count the occurences of each tag (word) in the pageTags array and store the resulting object (word,count) in the occurencesArray
-                             */
-                            function countOccurrences() {
-                                for(var i=0 ; i<pageTags.length ; i++) {
-                                    var word = pageTags[i];
-                                    var regex = new RegExp(word, 'ig');
-                                    var count = (pageParagraphs.match(regex) || []).length;
-                                    var occurrence = {word: word, count: count};
-                                    occurrencesArray.push(occurrence);
-                                }
-                            }
-
-                            /*
-                             Create bump using previously captured and processed data, then return it
-                             */
-                            function makeBump() {
-                                // Object containing the necessary bump data after page analysis
-                                var bump = new Object();
-                                bump.img = pageImage;
-                                bump.url = pageUrl;
-                                bump.tags = pageTags;
-                                //bump.siteName = siteName;
-                                //bump.pageTitle = pageTitle;
-                                //bump.pageLanguage = pageLanguage;
-                                //bump.occurencesCount = occurrencesArray;
-                                return bump;
-                            }
-
-                            /*
-                             Debugging function based on console's logs
-                             */
-                            function debugAnalyser() {
-                                console.log(metas[0]);
-
-                                console.log("h1 : " + pageH1Array +
-                                    "\nh2 : " + pageH2Array +
-                                    "\nh3 : " + pageH3Array);
-
-                                console.log("siteName : " + siteName +
-                                    "\npageKeywords : " + pageKeywords +
-                                    "\npageDescription : " + pageDescription +
-                                    "\npageLanguage : " + pageLanguage +
-                                    "\npageUrl : " + pageUrl +
-                                    "\npageImage : " + pageImage);
-
-                                for(var i=0 ; i<occurrencesArray.length ; i++) {
-                                    console.log("The word : " + occurrencesArray[i].word + " occurs : " + occurrencesArray[i].count + " times in the text");
-                                }
-                            }
-
-                            /*
-                             Main function that calls all the useful functions in order to create the page bump.
-                             */
-                            function analysePage() {
-                                getMetasContent();
-                                getPageBasicHTMLElement();
-                                getTitles();
-
-                                extractTags();
-
-                                gatherParagraphs();
-
-                                countOccurrences();
-
-                                var bump = makeBump();
-                                return bump;
-
-                                /*
-                                 DEBUG
-                                 */
-                                //debugAnalyser();
-                            }
+                            bump.create().then(function (response) {
+                                console.log(response);
+                                $log.info('[Button Directive] Insertion succeeded');
+                            }, function (error) {
+                                console.log(error);
+                                $log.error('[Button Directive] Insertion failed, got: ', error)
+                            });
 
                             $scope.closeDialog();
                         };
@@ -306,6 +140,187 @@ angular.module('eklabs.angularStarterPack.bump')
                             $scope.tags.splice(index, 1);
                         };
                     }
+                };
+
+                function computeTagsFromURL(url) {
+                    var defer = $q.defer();
+
+                    $http.get(url).then(function (response) {
+                        var parser      = new DOMParser(),
+                            document    = parser.parseFromString(response.data, 'text/html');
+
+                        defer.resolve(computeTagsFromDOM(document));
+                    }, function (error) {
+                        defer.reject(error);
+                    });
+                }
+
+                function computeTagsFromDOM(container) {
+                    if (typeof container === 'string') {
+                        container = document.querySelector(container);
+                    }
+                    if (container instanceof HTMLIFrameElement) {
+                        container = container.contentDocument;
+                    } else if (!Node.prototype.isPrototypeOf(container)) {
+                        throw new TypeError('[Button Directive] argument container must be either a Node or a String' +
+                            'instance, got: ' + Object.prototype.toString.call(container));
+                    }
+                    $log.info('[Button Directive] Retrieving contents from: ', container);
+
+                    var contentsMap     = {},
+                        contentsFound   = [contentsMap];
+
+                    if (Document.prototype.isPrototypeOf(container)
+                     || container.constructor.name === 'HTMLDocument') {
+                        contentsFound.push(getMetasContent(container));
+                        contentsFound.push(getPageBasicHTMLElement(container));
+                    }
+                    contentsFound.push(getTitles(container));
+
+                    angular.merge.apply(null, contentsFound);
+
+                    /*
+                     Regexp used to filter/search through and clean data
+                     */
+                    var regexCleaner    = /\Wle\W|\Wla\W|\Wles\W|\Wl'|\Wl'|\Wde\W|\Wdu\W|\Wdes\W|\Wd'|\Wd'|\Wmais\W|\Wou\W|\Wet\W|\Wdonc\W|\Wor\W|\Wni\W|\Wcar\W|\Wque\W|\Wqu'|\Wsi\W|\Wlorsque\W|\Wcomme\W|\Wpuisque\W|\Wquand\W|\Wdans\W|\Wà\W|\Wa|\Wchez\W|\Wen\W|\Wdans\W|\Wavant\W|\Wdevant\W|\Waprès\W|\Wderrière\W|\Wpar\W|\Wpour\W|\Wavec\W|\Wentre\W|\Wjusque\W|\Wjusqu'|\Wcontre\W|\Wsur\W|\Wsous\W|\Wvers\W|\Wsans\W|\Wenvers\W|\Wprès\W|\Wauprès\W|\Wautour\W|\d\D|[.,\/#!$%\^&*;:{}=\-_'~()«»"@\n\t]/ig,
+                        regexWhitespace = /\s{2,}/g;
+
+                    for (var content in contentsMap) {
+                        if (contentsMap[content].lastIndexOf('http', 0) === 0) {
+                            //If string starts with http, ie site url or thumbnail
+                            continue;
+                        }
+                        contentsMap[content] = contentsMap[content]
+                            .replace(regexCleaner, ' ')
+                            .replace(regexWhitespace, ' ')
+                            .toLowerCase();
+                    }
+                    $log.info('[Button Directive] Contents retrieved and filtered: ', contentsMap);
+
+                    //Count occurrences for each word
+                    var wordCounts = Object.keys(contentsMap).reduce(function(acc, curr) {
+                        //Increment each word counter by the weight of its container
+                        angular.forEach(contentsMap[curr].split(' '), function (word) {
+                            if (typeof CONTENT_WEIGHTS[curr] === 'number') {
+                                acc[word] = (acc[word] || 0) + CONTENT_WEIGHTS[curr];
+                            }
+                        });
+
+                        return acc;
+                    }, {});
+
+                    //Filter out the words under the threshold
+                    return Object.keys(wordCounts).filter(function (word) {
+                        return wordCounts[word] > CONTENT_WEIGHT_MIN;
+                    //Transform into an array
+                    }).reduce(function (acc, curr) {
+                        acc.push(curr);
+
+                        return acc;
+                    }, []);
+
+                    //TODO: store the thumbnail image somewhere
+                }
+
+                /*
+                 Get the content of the main metas tags (name, language, keywords, image,...
+                 */
+                function getMetasContent(element) {
+                    var list        = {},
+                        patterns    = [
+                            /site/i,
+                            /name/i,
+                            /keywords/i,
+                            /description/i,
+                            /language/i,
+                            /url/i,
+                            /image/i
+                        ],
+                        metas       = element.querySelectorAll('meta'),
+                        i, j, k, l;
+
+                    for (i = 0, k = metas.length; i < k && patterns.length > 0; i++) {
+                        for (j = 0, l = patterns.length; j < l; j++) {
+                            if (metas[i].hasAttribute('name')
+                             && metas[i].getAttribute('name').search(patterns[j]) !== -1) {
+                                list[patterns[j].source] = metas[i].getAttribute('content');
+                                patterns.splice(j, 1); //Stop main loop if all patterns are found
+
+                                break; //Stop this loop if the pattern is found
+                            }
+                        }
+                    }
+
+                    return list;
+                }
+
+                /*
+                 Get the pages 'basic' html elements like title or language.
+                 This function is used to complement the getMetasContent() function by trying to get datas that couldn't be found in the metas.
+                 */
+                function getPageBasicHTMLElement(element) {
+                    var list = {};
+
+                    list.title = element.querySelector('title').innerHTML;
+                    list.language = element.documentElement.lang;
+
+                    return list;
+                }
+
+                /*
+                 Get the 3 main titles
+                 */
+                function getTitles(element) {
+                    var list = {},
+                        level = 1,
+                        mapFunction = function () { //Function used to map over a NodeList
+                            var args = Array.prototype.slice.call(arguments, 0), //Actual arguments left after shifting
+                                array = args.shift(); //The array to call map upon
+
+                            return Array.prototype.map.apply(array, args);
+                        },
+                        mapCallback = function (title) {
+                            return title.textContent || title.innerText;
+                        };
+
+                    while (element.querySelector('h' + level) === null) {
+                        level++;
+                    }
+
+                    list.hN         = mapFunction(element.querySelectorAll('h' + level), mapCallback).join(' ');
+                    list.hNminus1   = mapFunction(element.querySelectorAll('h' + ++level), mapCallback).join(' ');
+                    list.hNminus2   = mapFunction(element.querySelectorAll('h' + ++level), mapCallback).join(' ');
+
+                    return list;
+                }
+
+                /*
+                 Count the occurences of each tag (word) in the pageTags array and store the resulting object (word,count) in the occurencesArray
+                 */
+                function countOccurrences() {
+                    for(var i=0 ; i<pageTags.length ; i++) {
+                        var word = pageTags[i];
+                        var regex = new RegExp(word, 'ig');
+                        var count = (pageParagraphs.match(regex) || []).length;
+                        var occurrence = {word: word, count: count};
+                        occurrencesArray.push(occurrence);
+                    }
+                }
+
+                /*
+                 Create bump using previously captured and processed data, then return it
+                 */
+                function makeBump() {
+                    // Object containing the necessary bump data after page analysis
+                    var bump = {};
+                    bump.img = pageImage;
+                    bump.url = pageUrl;
+                    bump.tags = pageTags;
+                    //bump.siteName = siteName;
+                    //bump.pageTitle = pageTitle;
+                    //bump.pageLanguage = pageLanguage;
+                    //bump.occurencesCount = occurrencesArray;
+                    return bump;
                 }
             }
         }

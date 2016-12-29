@@ -17,11 +17,11 @@ angular.module('eklabs.angularStarterPack.bump')
         /**
          * Constructor
          * @param {Object} data
-         * @param {string} data.id
-         * @param {string} data.idUser
-         * @param {string} data.img
-         * @param {string} data.url
-         * @param {Array.<string>} data.tag
+         * @param {string=} data.id
+         * @param {string=} data.idUser
+         * @param {string=} data.img
+         * @param {string=} data.url
+         * @param {Array.<string>=} data.tag
          * @constructor
          */
         var Bump = function (data) {
@@ -30,7 +30,7 @@ angular.module('eklabs.angularStarterPack.bump')
                 this.userId = data.idUser;
                 this.img    = data.img;
                 this.url    = data.url;
-                this.tags    = data.tag;
+                this.tags   = data.tag;
             } else {
                 throw new TypeError('The following Bump is malformed: ' + angular.toJson(data));
             }
@@ -62,10 +62,10 @@ angular.module('eklabs.angularStarterPack.bump')
          */
         Bump.prototype.toApi = function () {
             return {
-                idUser  : this.name,
+                idUser  : this.userId,
                 img     : this.img,
                 url     : this.url,
-                tag     : this.tag
+                tag     : this.tags
             }
         };
 
@@ -94,7 +94,7 @@ angular.module('eklabs.angularStarterPack.bump')
         Bump.prototype.create = function () {
             var defer   = $q.defer();
 
-            $http.post(route, this).then(function (response) {
+            $http.post(route, this.toApi()).then(function (response) {
                 this.id = response.data.id;
                 defer.resolve(this);
             }.bind(this), function(reason){

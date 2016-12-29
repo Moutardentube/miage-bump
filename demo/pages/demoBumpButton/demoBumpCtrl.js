@@ -15,6 +15,8 @@ angular.module('demoApp')
             case        : 'Default Case',
             user        : undefined,
             url         : '',
+            container   : 'iframe',
+            tags        : undefined,
             callback    : undefined,
             options     : undefined
         }, {
@@ -23,10 +25,12 @@ angular.module('demoApp')
              */
             case        : 'Case User',
             user        : {
-                id      : '',
+                id      : '5865868b0532ac18c82349ad',
                 name    : 'Ludo Babadjo'
             },
             url         : 'https://www.dealabs.com/bons-plans/magnum-de-15l-de-chouffe/296071',
+            container   : 'iframe',
+            tags        : undefined,
             callback    : undefined,
             options     : undefined
 
@@ -48,6 +52,8 @@ angular.module('demoApp')
             $scope.myUser       = $scope.params[index].user;
             $scope.myCallback   = $scope.params[index].callback;
             $scope.myUrl        = $scope.params[index].url;
+            $scope.myContainer  = $scope.params[index].container;
+            $scope.myTags       = $scope.params[index].tags;
 
             $scope.index        = index;
             $scope.haveResult   = false;

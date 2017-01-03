@@ -1,21 +1,18 @@
 {
-  "name": "eklabs.angularStarterPack",
-  "version": "0.2.6",
-  "description": "AngularJS Starter Pack",
+  "name": "miage.bump",
+  "version": "0.0.1",
+  "description": "MIAGE Bump",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kiwouz/eklabs.angularStarterPack"
+    "url": "Moutardentube/miage-bump"
   },
   "dependencies": {
     "angular": "~1.5.8",
     "jquery": "~2.1",
     "moment": "~2.11.1",
     "angular-material": "1.1.1",
-    "angular-resource": "~1.5.8",
-    "angular-sanitize": "~1.5.8",
     "angular-ui-ace": "bower",
-    "angular-local-storage": "~0.2.2",
-    "ng-file-upload": "~9.0.7",
+    "eklabs.angularStarterPack": "https://github.com/Kiwouz/eklabs.angularStarterPack.git#~0.2",
     "ng-onload": "^0.5.0",
     "angular-toArrayFilter": "^1.0.1"
   },

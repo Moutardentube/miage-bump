@@ -1,21 +1,4 @@
-[{
-  "name"        : "JSON Editor",
-  "description" : "Example of demo interface with a JSON Editor UI-ACE",
-  "icon"        : "code",
-  "state"       : "jsonEditor"
-},
-{
-  "name"        : "Form Example",
-  "description" : "Example how to use a form",
-  "icon"        : "bug_report",
-  "state"       : "myForm"
-},
-  {
-    "name"        : "my-user-tab",
-    "description" : "Full user process",
-    "icon"        : "people",
-    "state"       : "myForm2"
-  },
+[
   {
     "name"        : "Bump Button",
     "description" : "Example of demo interface with a Bump Button UI-ACE",

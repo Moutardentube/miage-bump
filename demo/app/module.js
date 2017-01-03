@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('demoApp', [
-    'eklabs.angularStarterPack',
+    'miage.bump',
     'ngMaterial',
     'ui.router',
     'jsonFormatter',

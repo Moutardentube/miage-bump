@@ -14,33 +14,12 @@ angular.module('demoApp')
         })
 
         // ------------------------------------------------------------------------------------------------
-        // DEMO EDITOR Component
-        // ------------------------------------------------------------------------------------------------
-        .state('jsonEditor', {
-            url : '/json-editor',
-            controller : 'demoEditorCtrl',
-            templateUrl : "pages/demoEditor/demoEditorView.html"
-        })
-
-        .state('myForm', {
-            url : '/my-form',
-            controller : 'demoFormCtrl',
-            templateUrl : "pages/demoform/demoFormView.html"
-        })
-
-        .state('myForm2', {
-            url : '/my-form-classique',
-            controller : 'demoUserCtrl',
-            templateUrl : "pages/demoUser/demoUserView.html"
-        })
-
-        // ------------------------------------------------------------------------------------------------
         // DEMO BUMP Component
         // ------------------------------------------------------------------------------------------------
         .state('bumpButton', {
             url: '/bump-button',
-            controller: 'demoBumpCtrl',
-            templateUrl: "pages/demoBumpButton/demoBumpView.html"
+            controller: 'demoBumpButtonCtrl',
+            templateUrl: "pages/demoBumpButton/demoBumpButtonView.html"
         })
 
         .state('bumpProfile', {

@@ -6,7 +6,7 @@
     <meta name="description" content="Paris Test application">
     <meta name="viewport" content="width=device-width">
 
-    <link rel="icon" sizes="192x192" href="/images/dev.png"  />
+    <link rel="icon" sizes="192x192" href="images/dev.png"  />
 
     <!---------- LOAD CSS DEPENDENCIES --------->
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css" />
@@ -16,7 +16,7 @@
     <!---------- END CSS DEPENDENCIES --------->
 
     <!---------- LOAD CSS --------->
-    <link rel="stylesheet" href="build/eklabs.angularStarterPack.css">
+    <link rel="stylesheet" href="build/miage.bump.css">
     <link rel="stylesheet" href="css/test-css.css">
     <!---------- END CSS --------->
 
@@ -32,7 +32,7 @@
             <img ng-src="/images/dev.png" style="width:40px;height: 40px;">
         </md-button>
 
-        <span style="color:#1a1a1a; font-weight: 200;padding-top:8px">ANGULARJS STARTER PACK 0.2.5 : DEV PLATFORM</span>
+        <span style="color:#1a1a1a; font-weight: 200;padding-top:8px">MIAGE BUMP 0.0.1 : DEV PLATFORM</span>
 
         <span flex></span>
     </md-toolbar>
@@ -56,8 +56,6 @@
 
 <script src="bower_components/angular/angular.js"></script>
 
-<script src="bower_components/angular-resource/angular-resource.js"></script>
-
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 
 <script src="bower_components/angular-animate/angular-animate.min.js"></script>
@@ -70,17 +68,15 @@
 
 <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
 
-<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
-
 <script src="bower_components/angular-ui-ace/ui-ace.min.js"></script>
 
 <script src="bower_components/ace-builds/src-min-noconflict/ext-language_tools.js"></script>
 
-<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-
 <script src="bower_components/ng-onload/release/ng-onload.js"></script>
 
 <script src="bower_components/angular-toArrayFilter/toArrayFilter.js"></script>
+
+<script src="bower_components/eklabs.angularStarterPack/release/eklabs.angularStarterPack.js"></script>
 <!--END-->
 
 <!-- _____ DEV DEPENDENCIES -->
@@ -90,9 +86,9 @@
 <script src="bower_components/json-formatter/dist/json-formatter.js"></script>
 <!--END-->
 
-<!-- _____ LOAD MBS CORE LIBRARY -->
-<script src="build/eklabs.angularStarterPack.js"></script>
-<script src="build/eklabs.angularStarterPack_view.js"></script>
+<!-- _____ LOAD MIAGE BUMP LIBRARY -->
+<script src="build/miage.bump.js"></script>
+<script src="build/miage.bump_view.js"></script>
 <!--END-->
 
 <!---- GENERAL CONFIG ----->
@@ -106,10 +102,7 @@
 
 <!-- _____ DEMO -->
 <script src="pages/_homepage/homepageCtrl.js"></script>
-<script src="pages/demoEditor/demoEditorCtrl.js"></script>
-<script src="pages/demoform/demoFormCtrl.js"></script>
-<script src="pages/demoUser/demoUserCtrl.js"></script>
-<script src="pages/demoBumpButton/demoBumpCtrl.js"></script>
+<script src="pages/demoBumpButton/demoBumpButtonCtrl.js"></script>
 <script src="pages/demoBumpProfile/demoBumpProfileCtrl.js"></script>
 
 </html>

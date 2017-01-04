@@ -48,6 +48,34 @@ angular.module('miage.bump')
         };
 
         /**
+         * @returns {string}
+         */
+        Bump.prototype.getUserId = function () {
+            return this.userId;
+        };
+
+        /**
+         * @returns {string}
+         */
+        Bump.prototype.getImg = function () {
+            return this.img;
+        };
+
+        /**
+         * @returns {string}
+         */
+        Bump.prototype.getUrl = function () {
+            return this.url;
+        };
+
+        /**
+         * @returns {Array.<string>}
+         */
+        Bump.prototype.getTags = function () {
+            return this.tags;
+        };
+
+        /**
          * Manage case no photo ;)
          * @returns {string}
          */

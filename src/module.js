@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('eklabs.angularStarterPack',[
-    'eklabs.angularStarterPack.config',
-    'eklabs.angularStarterPack.upload',
-    'eklabs.angularStarterPack.jsonEditor',
-    'eklabs.angularStarterPack.forms',
+angular.module('miage.bump', [
+    'miage.bump.button',
+    'miage.bump.profile',
     'eklabs.angularStarterPack.user',
-    'eklabs.angularStarterPack.bump'
-]);
+    'ngMaterial'
+]).config(function ($mdIconProvider) {
+    $mdIconProvider.iconSet('material-design', '/public/material-design.svg', 24);
+});

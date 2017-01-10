@@ -1,7 +1,0 @@
-{
-  "user" : "Resource User",
-
-  "callback"   : {
-    "onValid" : "function(user){}"
-  }
-}

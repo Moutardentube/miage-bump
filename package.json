@@ -1,15 +1,18 @@
 {
-  "name": "eklabs.angularStarterPack",
-  "version": "0.2.6",
-  "description": "AngularJS Starter Pack",
+  "name": "miage.bump",
+  "version": "0.3.0",
+  "description": "MIAGE Bump",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kiwouz/eklabs.angularStarterPack"
+    "url": "https://github.com/Moutardentube/miage-bump"
   },
   "authors": [
-    "Laurent Breda"
+    "Ludovic Atmadjian",
+    "Oscar Amzalag",
+    "Clément Chaudat",
+    "Anis Mezdari"
   ],
-  "main": "release/eklabs.angualarStarterPack.js",
+  "main": "release/miage.bump.js",
   "devDependencies": {
     "angular": "^1.5.8",
     "angular-mocks": "^1.5.8",

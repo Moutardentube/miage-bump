@@ -1,6 +1,6 @@
 // Karma configuration
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -18,11 +18,20 @@ module.exports = function(config) {
       '../node_modules/angular-ui-router/release/angular-ui-router.js', // ui-router
       '../node_modules/angular-mocks/angular-mocks.js',                 // loads our modules for tests
       '../demo/bower_components/angular-ui-ace/ui-ace.js',
-      '../demo/build/eklabs.angularStarterPack.js',
-      '../demo/build/eklabs.angularStarterPack_view.js',
+      '../demo/bower_components/angular-animate/angular-animate.js',
+      '../demo/bower_components/angular-aria/angular-aria.js',
+      '../demo/bower_components/angular-material/angular-material.js',
+      '../demo/bower_components/angular-material/angular-material-mocks.js',
+      '../demo/bower_components/eklabs.angularStarterPack/release/eklabs.angularStarterPack.js',
+      '../demo/build/miage.bump.js',
+      '../demo/build/miage.bump_view.js',
       'specs/unitTest.specs.js',
-      'specs/user.specs.js',
-      'specs/directive.user.specs.js',
+      'specs/bump.specs.js',
+      'specs/directive.bump.button.specs.js',
+      'specs/directive.bump.profile.specs.js',
+      'specs/directive.bump.tops.specs.js',
+      'specs/directive.bump.trends.specs.js',
+      'specs/directive.bump.matches.specs.js',
       'specs/navigation.specs.js'
     ],
 
@@ -54,7 +63,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
 
     // enable / disable watching file and executing tests whenever any file changes
@@ -74,4 +83,4 @@ module.exports = function(config) {
     // how many browser should be started simultaneous
     concurrency: Infinity
   })
-}
+};

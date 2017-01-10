@@ -130,14 +130,14 @@ module.exports = function (grunt) {
         ngtemplates: {
             app : {
                 src: ['src/views/{**/,}*.html','src/public/{**/,}*.svg','src/modules/{**/,}*.html'],
-                dest: '<%= builddir %>/eklabs.angularStarterPack_view.js',
+                dest: '<%= builddir %>/<%= pkg.name %>_view.js',
                 concat: 'dist',
                 options: {
                     url: function (url) {
                         url = url.substr(0, 4) === 'src/' ? url.substr(4) : url;
-                        return 'eklabs.angularStarterPack/'+url;
+                        return grunt.file.readJSON('package.json').name + '/' + url;
                     },
-                    module: 'eklabs.angularStarterPack'
+                    module: '<%= pkg.name %>'
                 }
             }
         },

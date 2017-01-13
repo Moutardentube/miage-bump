@@ -1,6 +1,6 @@
 /**
  * MIAGE Bump
- * @version v0.3.0
+ * @version v0.3.1
  * @link 
  */
 
@@ -61,7 +61,7 @@ angular.module('miage.bump.button')
                 });
 
                 var defaultActions = {
-                    onBump: function (user, url, container, tags, e) {
+                    onBump: function (user, url, container, tags) {
                         var foundTags;
 
                         if (tags !== undefined) {

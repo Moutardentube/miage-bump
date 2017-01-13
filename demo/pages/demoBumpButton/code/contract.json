@@ -1,7 +1,9 @@
 {
   "user"      : "Resource User",
   "url"       : "string",
+  "container" : "string",
+  "tags"      : "string",
   "callback"  : {
-    "onBump"  : "function (user, url) {}"
+    "onBump"  : "function (user, url, container, tags) {}"
   }
 }

@@ -39,7 +39,7 @@ angular.module('miage.bump.button')
                 });
 
                 var defaultActions = {
-                    onBump: function (user, url, container, tags, e) {
+                    onBump: function (user, url, container, tags) {
                         var foundTags;
 
                         if (tags !== undefined) {

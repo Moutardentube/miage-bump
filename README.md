@@ -1,4 +1,4 @@
-# miage.bump 0.3.1
+# miage.bump 0.3.2
 
 A Bump module embedding directives that:
  - Bumps the contents of an URL or a DOM Node
@@ -6,8 +6,16 @@ A Bump module embedding directives that:
  - Displays the top tags from a user
  - Displays the top tags from a user's friends
  - Displays profiles matching a user's tags
+ 
+## How to run as demo and dev server
 
-## How to use
+1. Clone the repository: `git clone https://github.com/Moutardentube/miage-bump.git`
+2. Go to the project directory: `cd miage-bump`
+3. Run `npm install` then `bower install`
+4. Start `grunt dev`
+5. Visit http://localhost:9100
+
+## How to run as standalone component
 
 ### Install the module
 1. Install with bower: `bower install https://github.com/Moutardentube/miage-bump`

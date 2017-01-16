@@ -1,6 +1,6 @@
 {
   "name": "miage.bump",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "MIAGE Bump",
   "repository": {
     "type": "git",
@@ -8,11 +8,12 @@
   },
   "dependencies": {
     "angular": "~1.5.8",
+    "angular-animate": "1.5.8",
     "jquery": "~2.1",
     "moment": "~2.11.1",
     "angular-material": "1.1.1",
     "angular-ui-ace": "bower",
-    "eklabs.angularStarterPack": "https://github.com/Kiwouz/eklabs.angularStarterPack.git#~0.2",
+    "eklabs.angularStarterPack": "https://github.com/Kiwouz/eklabs.angularStarterPack.git#~0.2.6",
     "ng-onload": "^0.5.0",
     "angular-toArrayFilter": "^1.0.1"
   },
@@ -20,5 +21,8 @@
     "angular-ui-router": "~0.2.15",
     "json-formatter": "json-formatter#0.6.0",
     "angular-highlightjs": "~0.6.1"
+  },
+  "resolutions": {
+    "angular": "~1.5.8"
   }
 }

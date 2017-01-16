@@ -9,9 +9,9 @@ angular.module('demoApp')
 
         platform : 'DEV',
 
-        name : 'ANGULARJS Component Starter Pack',
+        name : 'MIAGE Bump',
         
-        version : '0.2.5',
+        version : '0.3.2',
 
         api         : 'http://91.134.241.60:3080/resources',
         uploadPath  : 'http://91.134.241.60:3080/data'

@@ -1,6 +1,6 @@
 {
   "name": "miage.bump",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "MIAGE Bump",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
     "moment": "~2.11.1",
     "angular-material": "1.1.1",
     "angular-ui-ace": "bower",
-    "eklabs.angularStarterPack": "https://github.com/Kiwouz/eklabs.angularStarterPack.git#~0.2",
+    "eklabs.angularStarterPack": "https://github.com/Kiwouz/eklabs.angularStarterPack.git#~0.2.6",
     "ng-onload": "^0.5.0",
     "angular-toArrayFilter": "^1.0.1"
   },

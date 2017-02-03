@@ -1,6 +1,6 @@
 /**
  * MIAGE Bump
- * @version v0.3.2
+ * @version v0.3.3
  * @link 
  */
 
@@ -47,6 +47,8 @@ angular.module('miage.bump.button')
                 },
                     CONTENT_WEIGHT_MIN  = 15;
 
+                var dialog = $q.defer().promise;
+
                 scope.$watch('user', function (user) {
                     scope.myUser = user;
                 });
@@ -62,19 +64,22 @@ angular.module('miage.bump.button')
 
                 var defaultActions = {
                     onBump: function (user, url, container, tags) {
-                        var foundTags;
+                        var foundTags = $q.defer(); //In some cases the tags are found asynchronously
 
                         if (tags !== undefined) {
-                            foundTags = tags;
+                            foundTags.resolve(tags); //Synchronous
                         } else if (container !== undefined) {
-                            foundTags = computeTagsFromDOM(container);
+                            foundTags.resolve(computeTagsFromDOM(container)); //Synchronous
                         } else if (url !== undefined) {
-                            foundTags = computeTagsFromURL(url);
+                            foundTags = computeTagsFromURL(url); //Asynchronous
                         } else {
-                            foundTags = [];
+                            foundTags.resolve([]);
                         }
 
-                        scope.showDialog(foundTags, url);
+                        $q.when(foundTags.promise, function (tags) { //When the tags are available
+                            scope.myFoundTags = tags;
+                            scope.showDialog(tags, url);
+                        });
                     }
                 };
 
@@ -86,8 +91,8 @@ angular.module('miage.bump.button')
                     }
                 });
 
-                scope.showDialog = function(tags, url) {
-                    $mdDialog.show({
+                scope.showDialog = function (tags, url) {
+                    dialog = $mdDialog.show({
                         template:
                         '<md-dialog aria-label="Bump?">' +
                         '   <md-dialog-content>' +
@@ -123,30 +128,20 @@ angular.module('miage.bump.button')
                         },
                         controller: DialogController
                     });
-                    function DialogController($scope, $mdDialog, tags, url) {
+
+                    dialog.then(function (tags) { //Success callback fired from $mdDialog
+                        createBump(tags);
+                    });
+
+                    function DialogController($scope, $mdDialog, tags) {
                         tags.unshift('');
                         $scope.tags = tags;
 
-                        $scope.closeDialog = function() {
-                            $mdDialog.hide();
+                        $scope.closeDialog = function () {
+                            $mdDialog.cancel(); //Fires error callback
                         };
-                        $scope.confirmBump = function() {
-                            var bump = new Bump({
-                                idUser  : scope.user.id,
-                                url     : url,
-                                tag     : tags.slice(1, tags.length)
-                            });
-                            $log.info('[Button Directive] Inserting following bump in remote database: ', bump);
-
-                            bump.create().then(function (response) {
-                                console.log(response);
-                                $log.info('[Button Directive] Insertion succeeded');
-                            }, function (error) {
-                                console.log(error);
-                                $log.error('[Button Directive] Insertion failed, got: ', error)
-                            });
-
-                            $scope.closeDialog();
+                        $scope.confirmBump = function () {
+                            $mdDialog.hide($scope.tags); //Fires success callback with tags as argument
                         };
                         $scope.addTag = function (tag) {
                             if (tag === '') {
@@ -155,26 +150,40 @@ angular.module('miage.bump.button')
                             $scope.tags.splice(1, 0, tag);
                             $scope.tags[0] = '';
                         };
-                        $scope.editTag = function (index) {
-
-                        };
                         $scope.deleteTag = function (index) {
                             $scope.tags.splice(index, 1);
                         };
                     }
                 };
 
+                function createBump(tags) {
+                    var bump = new Bump({
+                        idUser  : scope.user.id,
+                        url     : scope.url,
+                        tag     : tags.slice(1, tags.length)
+                    });
+                    $log.info('[Button Directive] Inserting following bump in remote database: ', bump);
+
+                    bump.create().then(function () {
+                        $log.info('[Button Directive] Insertion succeeded');
+                    }, function (error) {
+                        $log.error('[Button Directive] Insertion failed, got: ', error)
+                    });
+                }
+
                 function computeTagsFromURL(url) {
-                    var defer = $q.defer();
+                    var deferred = $q.defer();
 
                     $http.get(url).then(function (response) {
                         var parser      = new DOMParser(),
                             document    = parser.parseFromString(response.data, 'text/html');
 
-                        defer.resolve(computeTagsFromDOM(document));
+                        deferred.resolve(computeTagsFromDOM(document));
                     }, function (error) {
-                        defer.reject(error);
+                        deferred.reject(error);
                     });
+
+                    return deferred;
                 }
 
                 function computeTagsFromDOM(container) {
@@ -208,7 +217,7 @@ angular.module('miage.bump.button')
                         regexWhitespace = /\s{2,}/g;
 
                     for (var content in contentsMap) {
-                        if (contentsMap[content].lastIndexOf('http', 0) === 0) {
+                        if (undefined === contentsMap[content] || contentsMap[content].lastIndexOf('http', 0) === 0) {
                             //If string starts with http, ie site url or thumbnail
                             continue;
                         }
@@ -222,6 +231,9 @@ angular.module('miage.bump.button')
                     //Count occurrences for each word
                     var wordCounts = Object.keys(contentsMap).reduce(function(acc, curr) {
                         //Increment each word counter by the weight of its container
+                        if (undefined === contentsMap[curr]) {
+                            return acc;
+                        }
                         angular.forEach(contentsMap[curr].split(' '), function (word) {
                             if (typeof CONTENT_WEIGHTS[curr] === 'number') {
                                 acc[word] = (acc[word] || 0) + CONTENT_WEIGHTS[curr];
@@ -283,8 +295,8 @@ angular.module('miage.bump.button')
                 function getPageBasicHTMLElement(element) {
                     var list = {};
 
-                    list.title = element.querySelector('title').innerHTML;
-                    list.language = element.documentElement.lang;
+                    list.title = (element.querySelector('title') || {}).innerHTML;
+                    //list.language = element.documentElement.lang;
 
                     return list;
                 }
@@ -305,7 +317,7 @@ angular.module('miage.bump.button')
                             return title.textContent || title.innerText;
                         };
 
-                    while (element.querySelector('h' + level) === null) {
+                    while (element.querySelector('h' + level) === null && level < 10) {
                         level++;
                     }
 
@@ -314,22 +326,6 @@ angular.module('miage.bump.button')
                     list.hNminus2   = mapFunction(element.querySelectorAll('h' + ++level), mapCallback).join(' ');
 
                     return list;
-                }
-
-                /*
-                 Create bump using previously captured and processed data, then return it
-                 */
-                function makeBump() {
-                    // Object containing the necessary bump data after page analysis
-                    var bump = {};
-                    bump.img = pageImage;
-                    bump.url = pageUrl;
-                    bump.tags = pageTags;
-                    //bump.siteName = siteName;
-                    //bump.pageTitle = pageTitle;
-                    //bump.pageLanguage = pageLanguage;
-                    //bump.occurencesCount = occurrencesArray;
-                    return bump;
                 }
             }
         }

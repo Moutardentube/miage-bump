@@ -1064,7 +1064,7 @@ angular.module('miage.bump').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('miage.bump/modules/button/directives/button/view.html',
-    "<md-button ng-click=\"actions.onBump(myUser, myUrl, myContainer, myTags, $event)\">\n" +
+    "<md-button ng-click=\"actions.onBump(myUser, myUrl, myContainer, myTags)\">\n" +
     "    <md-icon md-svg-src=\"material-design:thumb_up\"></md-icon>\n" +
     "\n" +
     "    Bump!\n" +

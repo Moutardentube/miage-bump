@@ -135,7 +135,7 @@ module.exports = function (grunt) {
                 options: {
                     url: function (url) {
                         url = url.substr(0, 4) === 'src/' ? url.substr(4) : url;
-                        return grunt.file.readJSON('package.json').name + '/' + url;
+                        return grunt.config.data.pkg.name + '/' + url;
                     },
                     module: '<%= pkg.name %>'
                 }

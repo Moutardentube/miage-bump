@@ -1,4 +1,4 @@
-# miage.bump 0.3.2
+# miage.bump 0.3.3
 
 A Bump module embedding directives that:
  - Bumps the contents of an URL or a DOM Node
@@ -12,8 +12,10 @@ A Bump module embedding directives that:
 1. Clone the repository: `git clone https://github.com/Moutardentube/miage-bump.git`
 2. Go to the project directory: `cd miage-bump`
 3. Run `npm install` then `bower install`
-4. Start `grunt dev`
-5. Visit http://localhost:9100
+4. Create your own configuration file from the default one using `cp demo/config.dist.js config.js`
+5. Start `grunt dev`
+6. Open Chrome with same origin policy disabled: `open -a Google\ Chrome --args --disable-web-security --user-data-dir`
+7. Visit http://localhost:9100
 
 ## How to run as standalone component
 
@@ -27,6 +29,7 @@ A Bump module embedding directives that:
 <script src="bower_components/miage.bump/miage.bump.js"></script>
 <script src="bower_components/miage.bump/miage.bump_view.js"></script>
 ```
+
 ### Use its directives
 1. Use your existing configuration module or register a new one to inject your API parameters into Bump
 ```

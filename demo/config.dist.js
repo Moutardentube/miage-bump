@@ -11,7 +11,7 @@ angular.module('demoApp')
 
         name : 'MIAGE Bump',
         
-        version : '0.3.2',
+        version : '0.3.3',
 
         api         : 'http://91.134.241.60:3080/resources',
         uploadPath  : 'http://91.134.241.60:3080/data'

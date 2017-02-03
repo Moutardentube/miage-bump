@@ -1,4 +1,4 @@
-# miage.bump 0.3.2
+# miage.bump 0.3.3
 
 A Bump module embedding directives that:
  - Bumps the contents of an URL or a DOM Node
@@ -14,7 +14,8 @@ A Bump module embedding directives that:
 3. Run `npm install` then `bower install`
 4. Create your own configuration file from the default one using `cp demo/config.dist.js config.js`
 5. Start `grunt dev`
-6. Visit http://localhost:9100
+6. Open Chrome with same origin policy disabled: `open -a Google\ Chrome --args --disable-web-security --user-data-dir`
+7. Visit http://localhost:9100
 
 ## How to run as standalone component
 

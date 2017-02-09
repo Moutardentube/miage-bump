@@ -1,6 +1,6 @@
 /**
  * MIAGE Bump
- * @version v0.3.3
+ * @version v0.3.4
  * @link 
  */
 
@@ -1007,7 +1007,7 @@ angular.module('miage.bump')
                     this.addItem(item);
                 }.bind(this));
             } else {
-                this.addItem(data);
+                this.addItem(items);
             }
         };
 

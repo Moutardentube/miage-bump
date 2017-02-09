@@ -1,4 +1,4 @@
-# miage.bump 0.3.3
+# miage.bump 0.3.4
 
 A Bump module embedding directives that:
  - Bumps the contents of an URL or a DOM Node

@@ -65,7 +65,7 @@ angular.module('miage.bump')
                     this.addItem(item);
                 }.bind(this));
             } else {
-                this.addItem(data);
+                this.addItem(items);
             }
         };
 

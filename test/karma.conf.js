@@ -18,6 +18,7 @@ module.exports = function (config) {
       '../node_modules/angular-ui-router/release/angular-ui-router.js', // ui-router
       '../node_modules/angular-mocks/angular-mocks.js',                 // loads our modules for tests
       '../demo/bower_components/angular-ui-ace/ui-ace.js',
+      '../demo/bower_components/angular-ui-router/release/angular-ui-router.js',
       '../demo/bower_components/angular-animate/angular-animate.js',
       '../demo/bower_components/angular-aria/angular-aria.js',
       '../demo/bower_components/angular-material/angular-material.js',

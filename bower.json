@@ -18,7 +18,7 @@
     "angular-toArrayFilter": "^1.0.1"
   },
   "devDependencies": {
-    "angular-ui-router": "~0.2.15",
+    "angular-ui-router": "^0.3.2",
     "json-formatter": "json-formatter#0.6.0",
     "angular-highlightjs": "~0.6.1"
   },
